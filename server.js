@@ -1,37 +1,35 @@
-// server.js
-
+// puzzlezer0/alphahealth/alphahealth-9ff70f5394a43fcdb875334e0d00e4eb39f098f9/server.js
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const path = require('path');
 const { connectDB } = require('./src/infrastructure/database.js');
 const authRoutes = require('./src/adapters/in/web/auth.routes.js');
-const authMiddleware = require('./src/infrastructure/middleware/auth.middleware.js');
 
-const path = require('path'); // Asegúrate de importar el módulo 'path'
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.json());
 app.use(cors());
 app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// Servir archivos estáticos (HTML, CSS, JS del frontend)
 app.use(express.static(path.join(__dirname, 'public')));
+
 // Conexión a la base de datos
 connectDB();
 
-// Rutas
-app.use('/auth', authRoutes);
+// Rutas de la API
+app.use('/api', authRoutes);
 
-// Ejemplo de ruta protegida
-app.get('/protected', authMiddleware, (req, res) => {
-    res.status(200).json({ 
-        message: 'Esta es una ruta protegida. ¡Has accedido con éxito!',
-        user: req.user
-    });
+// Ruta principal que sirve el login
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'views', 'test', 'login.html'));
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

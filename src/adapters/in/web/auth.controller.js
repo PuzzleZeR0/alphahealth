@@ -1,32 +1,28 @@
-// src/adapters/in/web/auth.controller.js
-
-const loginUserUseCase = require('../../../application/use-cases/login-user.use-case');
-const registerUserUseCase = require('../../../application/use-cases/register-user.use-case');
+// puzzlezer0/alphahealth/alphahealth-9ff70f5394a43fcdb875334e0d00e4eb39f098f9/src/adapters/in/web/auth.controller.js
+const { registerUserUseCase } = require('../../../application/use-cases/register-user.use-case.js');
+const { loginUserUseCase } = require('../../../application/use-cases/login-user.use-case.js');
 
 const register = async (req, res) => {
-    const { username, password } = req.body;
+    const { nombre, email, contraseña } = req.body;
     try {
-        const newUser = await registerUserUseCase(username, password);
-        res.status(201).json({ 
-            message: 'Usuario registrado con éxito', 
-            user: { id: newUser.id, username: newUser.username } 
-        });
+        await registerUserUseCase(nombre, email, contraseña);
+        res.status(201).json({ message: 'Usuario registrado con éxito.' });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ error: error.message });
     }
 };
 
 const login = async (req, res) => {
-    const { username, password } = req.body;
+    const { email, contraseña } = req.body;
     try {
-        const token = await loginUserUseCase(username, password);
-        res.status(200).json({ message: 'Login exitoso', token });
+        const token = await loginUserUseCase(email, contraseña);
+        res.json({ token, redirectTo: '/views/inicio.html' });
     } catch (error) {
-        res.status(401).json({ message: error.message });
+        res.status(401).json({ error: error.message });
     }
 };
 
 module.exports = {
     register,
-    login
+    login,
 };

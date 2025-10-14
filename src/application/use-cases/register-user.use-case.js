@@ -1,22 +1,17 @@
-// src/application/use-cases/register-user.use-case.js
-
+// puzzlezer0/alphahealth/alphahealth-9ff70f5394a43fcdb875334e0d00e4eb39f098f9/src/application/use-cases/register-user.use-case.js
 const bcrypt = require('bcryptjs');
-const { createUser, findByUsername } = require('../../adapters/out/user.repository.js');
+const userRepository = require('../../adapters/out/user.repository.js');
 
-const registerUserUseCase = async (username, password) => {
-    // Verificar si el usuario ya existe
-    const existingUser = await findByUsername(username);
+const registerUserUseCase = async (nombre, email, contraseña) => {
+    const existingUser = await userRepository.findByEmail(email);
     if (existingUser) {
-        throw new Error('El usuario ya existe');
+        throw new Error('El correo electrónico ya está registrado.');
     }
 
-    // Cifrar la contraseña
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(contraseña, salt);
 
-    // Crear el nuevo usuario
-    const newUser = await createUser(username, hashedPassword);
-    return newUser;
+    return await userRepository.createUser(nombre, email, hashedPassword);
 };
 
-module.exports = registerUserUseCase;
+module.exports = { registerUserUseCase };

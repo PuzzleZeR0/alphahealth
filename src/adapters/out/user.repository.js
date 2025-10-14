@@ -1,17 +1,20 @@
-// filepath: c:\Users\ivaan\OneDrive\Documentos\NodeJS\backend\src\adapters\out\user.repository.js
+// puzzlezer0/alphahealth/alphahealth-9ff70f5394a43fcdb875334e0d00e4eb39f098f9/src/adapters/out/user.repository.js
 const { pool } = require('../../infrastructure/database.js');
 
-const findByUsername = async (username) => {
-    const [rows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+const findByEmail = async (email) => {
+    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
     return rows[0];
 };
 
-const createUser = async (username, password) => {
-    const [result] = await pool.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, password]);
-    return { id: result.insertId, username };
+const createUser = async (nombre, email, password) => {
+    const [result] = await pool.query(
+        'INSERT INTO users (nombre, email, password) VALUES (?, ?, ?)',
+        [nombre, email, password]
+    );
+    return { id: result.insertId, nombre, email };
 };
 
 module.exports = {
-    findByUsername,
+    findByEmail,
     createUser,
 };

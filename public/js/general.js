@@ -50,3 +50,19 @@ function handleResponsive(e) {
 // Ejecutar al cargar y al cambiar el tamaño
 mediaQuery.addListener(handleResponsive);
 handleResponsive(mediaQuery); // Verificar estado inicial
+
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutButton = document.querySelector('.btn-logout');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', () => {
+            // Eliminar el token de localStorage
+            localStorage.removeItem('token');
+            // Opcional: Limpiar cualquier otra información de sesión
+            localStorage.removeItem('redirectUrl');
+
+            alert('Has cerrado la sesión.');
+            // Redirigir al usuario a la página de inicio
+            window.location.href = '/';
+        });
+    }
+});

@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const path = require('path');
 const { connectDB } = require('./src/infrastructure/database.js');
 const authRoutes = require('./src/adapters/in/web/auth.routes.js');
+const authMiddleware = require('./src/infrastructure/middleware/auth.middleware.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,18 +17,27 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Servir archivos estáticos (HTML, CSS, JS del frontend)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Conexión a la base de datos
 connectDB();
 
-// Rutas de la API
+// --- Rutas ---
+
+// API routes
 app.use('/api', authRoutes);
 
-// Ruta principal que sirve el login
+// inicio
 app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'views', 'inicio.html'));
+});
+
+// Ruta login
+app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'views', 'test', 'login.html'));
+});
+
+app.get('/api/usuario', authMiddleware, (req, res) => {
+    res.json({ message: 'Acceso a ruta protegida', user: req.user });
 });
 
 app.listen(PORT, () => {

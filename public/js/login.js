@@ -27,7 +27,7 @@ signupForm.querySelector('form').addEventListener('submit', async (e) => {
 
     try {
         // Enviar la solicitud de registro al backend
-        const response = await fetch('/api/registrar', {
+        const response = await fetch('http://localhost:3003/api/registrar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ loginForm.querySelector('form').addEventListener('submit', async (e) => {
 
     try {
         // Enviar la solicitud de inicio de sesión al backend
-        const response = await fetch('/api/login', {
+        const response = await fetch('http://localhost:3003/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

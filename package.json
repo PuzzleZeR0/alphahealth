@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start:main": "node src/main-service/server.js",
+    "start:user": "node src/user-service/server.js",
+    "dev:main": "nodemon -r dotenv/config src/main-service/server.js",
+    "dev:user": "nodemon -r dotenv/config src/user-service/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

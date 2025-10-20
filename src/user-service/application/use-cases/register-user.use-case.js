@@ -1,6 +1,7 @@
-// puzzlezer0/alphahealth/alphahealth-9ff70f5394a43fcdb875334e0d00e4eb39f098f9/src/application/use-cases/register-user.use-case.js
+// puzzlezer0/alphahealth/src/user-service/application/use-cases/register-user.use-case.js
 const bcrypt = require('bcryptjs');
 const userRepository = require('../../adapters/out/user.repository.js');
+const { publishMessage } = require('../../infrastructure/message-broker'); // <-- NUEVO
 
 const registerUserUseCase = async (nombre, email, contraseña) => {
     const existingUser = await userRepository.findByEmail(email);
@@ -11,7 +12,24 @@ const registerUserUseCase = async (nombre, email, contraseña) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(contraseña, salt);
 
-    return await userRepository.createUser(nombre, email, hashedPassword);
+    const newUser = await userRepository.createUser(nombre, email, hashedPassword);
+
+    // --- PUBLICAR MENSAJE EN RABBITMQ ---
+    try {
+        const message = {
+            userId: newUser.id,
+            email: newUser.email,
+            action: 'register',
+            timestamp: new Date()
+        };
+        await publishMessage('user_events', JSON.stringify(message));
+    } catch (error) {
+        console.error("Error al publicar mensaje de registro en RabbitMQ:", error.message);
+        // (Decidir si fallar la operación o solo loguear el error)
+    }
+    // --- FIN DE PUBLICACIÓN ---
+
+    return newUser;
 };
 
 module.exports = { registerUserUseCase };

@@ -5,8 +5,11 @@ const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
 const { connectDB } = require('./src/infrastructure/database.js');
+
+// --- Importar Rutas y Middleware ---
 const authRoutes = require('./src/adapters/in/web/auth.routes.js');
-const authMiddleware = require('./src/infrastructure/middleware/auth.middleware.js');
+const citasRoutes = require('./src/adapters/in/web/citas.routes.js'); // NUEVO
+const authMiddleware = require('./src/infrastructure/middleware/auth.middleware.js'); // NUEVO
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,28 +19,23 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Conexión a la base de datos
 connectDB();
 
 // --- Rutas ---
 
-// API routes
-app.use('/api', authRoutes);
+// Rutas de API
+app.use('/api', authRoutes); // Rutas públicas de Auth (login/registro)
+app.use('/api', authMiddleware, citasRoutes); // Rutas protegidas de Citas (USA EL MIDDLEWARE)
 
-// inicio
+// Rutas de Vistas
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'views', 'inicio.html'));
 });
-
-// Ruta login
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'views', 'test', 'login.html'));
-});
-
-app.get('/api/usuario', authMiddleware, (req, res) => {
-    res.json({ message: 'Acceso a ruta protegida', user: req.user });
 });
 
 app.listen(PORT, () => {

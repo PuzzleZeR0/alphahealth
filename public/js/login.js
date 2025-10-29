@@ -75,9 +75,14 @@ loginForm.querySelector('form').addEventListener('submit', async (e) => {
         if (response.ok) {
             // Guardar el token en el localStorage
             localStorage.setItem('token', data.token);
+            showAlert('Inicio de sesión exitoso. Redirigiendo...', 'success', 3000); // Puedes ajustar la duración si quieres
 
-            // Redirigir al usuario a la página de usuarios
-            window.location.href = data.redirectTo;
+            // --- RETRASAR LA REDIRECCIÓN ---
+            setTimeout(() => {
+                // Redirigir al usuario DESPUÉS de un tiempo
+                window.location.href = data.redirectTo;
+            }, 1500); // Espera 1500 ms (1.5 segundos) antes de redirigir
+            
         } else {
             alert(data.error); // Mostrar mensaje de error
         }

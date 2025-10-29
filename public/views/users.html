@@ -21,11 +21,8 @@
             height="40"
             width="40"
             ></animated-icons>
-            <!-- <i class='bx bx-qr bx-tada' ></i> -->
-            <!-- <img src="../img/bee.png"  class="bee"> -->
             <span>Menú</span>
         </div>
-
         <div>
         <button id="inicio" type="submit" class="btn">
             <div class="btn-small-content">
@@ -36,7 +33,6 @@
             </div>
         </button>
         </div>
-
         <nav class="navegation">
             <ul>
                 <li>
@@ -63,15 +59,8 @@
                         <span>Historial clinico</span>
                     </a>
                 </li>
-                <!-- <li>
-                    <a class="btn-lateral" id="ajustes" href="users.html">
-                        <i class='bx bx-cog' ></i>
-                        <span></span>
-                    </a>
-                </li> -->
             </ul>
         </nav>
-
         <div class="separador"></div>
     </div>
     <header class="header">
@@ -142,7 +131,7 @@
                 <div class="item-fb mb-10 m-10">
                     <div class="flex-column">
                         <h4>Contacto emergencia</h4>
-                        <label class="mt-5" id=""></label>
+                         <label class="mt-5" id="contacto-emergencia-display"></label>
                     </div>
                 </div>
                 
@@ -166,65 +155,54 @@
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Nombre</h4>
-                                <input type="text" id="nombreInput">
-                            </div>
+                                <input type="text" id="nombreInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Fecha de nacimiento</h4>
-                                <input type="date" id="">
-                            </div>
+                                <input type="date" id="fechaNacimientoInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Edad</h4>
-                                <input type="number" id="">
-                            </div>
+                                <input type="number" id="edadInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Sexo</h4>
-                                <input type="text" id="">
-                            </div>
+                                <input type="text" id="sexoInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Domicilio</h4>
-                                <input type="text" id="">
-                            </div>
+                                <input type="text" id="domicilioInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Teléfono</h4>
-                                <input type="tel" id="">
-                            </div>
+                                <input type="tel" id="telefonoInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Ocupación</h4>
-                                <input type="text" id="">
-                            </div>
+                                <input type="text" id="ocupacionInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Estado civil</h4>
-                                <input type="text" id="">
-                            </div>
+                                <input type="text" id="estadoCivilInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Escolaridad</h4>
-                                <input type="text" id="">
-                            </div>
+                                <input type="text" id="escolaridadInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Contacto emergencia</h4>
                                 <h6 style="margin-top: 15px;">Nombre</h6>
-                                <input type="text" id="contacto-emergencia-nombre">
-                                <h6>Número</h6>
-                                <input type="number" id="contacto-emergencia-numero">
-                            </div>
+                                <input type="text" id="contacto-emergencia-nombre"> <h6>Número</h6>
+                                <input type="number" id="contacto-emergencia-numero"> </div>
                         </div>
                         
                     </div>
@@ -280,8 +258,7 @@
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4 class="mb-10">Cáncer (especificar tipo y parentesco)</h4>
-                                <input type="text" id="">
-                            </div>
+                                <input type="text" id="cancerFamDetalleInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
@@ -307,14 +284,12 @@
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Enfermedades neurológicas (ej. Alzheimer, epilepsia)</h4>
-                                <input type="text" id="">
-                            </div>
+                                <input type="text" id="neurologicasFamDetalleInput"> </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Otras enfermedades hereditarias relevantes.</h4>
-                                <input type="text" id="">
-                            </div>
+                                <input type="text" id="otrasHereditariasFamInput"> </div>
                         </div>
                         
                     </div>
@@ -496,7 +471,7 @@
                 </div>
                 <div class="flex-around">
                     <div class="ml-20">
-                        <button type="submit" class="btn-secundary"><i class='bx bx-save' ></i> Guardar</button>
+                        <button type="submit" id="btn-guardar-perfil" class="btn-secundary"><i class='bx bx-save' ></i> Guardar</button>
                     </div>
                     <div class="ml-20">
                         <button type="button" class="btn-danger js-close-modal"><i class='bx bx-user-x'></i> Cancelar</button>

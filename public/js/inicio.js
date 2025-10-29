@@ -4,17 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (agendarCitaButton) {
         agendarCitaButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-
+            e.preventDefault();
             const token = localStorage.getItem('token');
-
             if (token) {
-                // Si el usuario tiene sesión iniciada, lo redirigimos a la página de citas
                 window.location.href = '/views/citas.html';
             } else {
-                // Si no, le pedimos que inicie sesión
-                showAlert('Por favor, inicia sesión para agendar una cita.', 'warning');
-                window.location.href = '/login';
+                 // Mostrar alerta
+                 if (typeof showAlert === 'function') {
+                      showAlert('Por favor, inicia sesión para agendar una cita.', 'warning', 2000);
+                 } else {
+                      alert('Por favor, inicia sesión para agendar una cita.');
+                 }
+                 // Retrasar redirección
+                 setTimeout(() => {
+                      window.location.href = '/login'; // O la ruta correcta a tu login
+                 }, 1500);
             }
         });
     }
@@ -22,16 +26,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Puedes agregar aquí la misma lógica para otros botones del menú lateral si es necesario
     const navLinks = document.querySelectorAll('.navegation a');
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
+        link.addEventListener('click', function handleNavClick(e) { // Damos un nombre a la función
+            e.preventDefault(); // Prevenir navegación inmediata
             const token = localStorage.getItem('token');
-            const destination = this.href;
+            const destination = this.href; // El href original del enlace
 
             if (token) {
                 window.location.href = destination;
             } else {
-                showAlert('Debes iniciar sesión para acceder a esta sección.', 'warning');
-                window.location.href = '/login';
+                // Si NO hay token, muestra alerta y retrasa redirección
+                if (typeof showAlert === 'function') {
+                     showAlert('Debes iniciar sesión para acceder a esta sección.', 'warning', 2000);
+                } else {
+                     alert('Debes iniciar sesión para acceder a esta sección.');
+                }
+                // --- RETRASAR LA REDIRECCIÓN ---
+                setTimeout(() => {
+                     window.location.href = '/login'; // O la ruta correcta a tu login
+                }, 1500); // Espera 1.5 segundos
             }
         });
     });

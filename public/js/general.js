@@ -107,11 +107,17 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.removeItem('redirectUrl');
 
             if (typeof showAlert === 'function') {
-                 showAlert('Has cerrado la sesión.', 'info');
+                 showAlert('Has cerrado la sesión. Redirigiendo...', 'info', 2000);
              } else {
                  alert('Has cerrado la sesión.'); // Fallback si showAlert no está lista
              }
-            window.location.href = '/';
+             
+            setTimeout(() => {
+              // Redirigir al usuario a la página de inicio DESPUÉS de un tiempo
+              window.location.href = '/';
+         }, 1500); // Espera 1500 ms (1.5 segundos) antes de redirigir
+
+            
         });
     }
 

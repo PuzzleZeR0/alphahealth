@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = '/views/citas.html';
             } else {
                 // Si no, le pedimos que inicie sesión
-                alert('Por favor, inicia sesión para agendar una cita.');
+                showAlert('Por favor, inicia sesión para agendar una cita.', 'warning');
                 window.location.href = '/login';
             }
         });
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (token) {
                 window.location.href = destination;
             } else {
-                alert('Debes iniciar sesión para acceder a esta sección.');
+                showAlert('Debes iniciar sesión para acceder a esta sección.', 'warning');
                 window.location.href = '/login';
             }
         });

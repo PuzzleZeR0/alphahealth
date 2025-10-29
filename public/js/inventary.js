@@ -291,7 +291,7 @@ document.addEventListener("click", async (event) => {
             cargarInventario();
         } catch (error) {
             console.error("❌ Error al actualizar el producto:", error);
-            alert("Error al actualizar el producto. Revisa la consola para más detalles.");
+            showAlert("Error al actualizar el producto.", 'error');
         }
     }
 });
@@ -312,7 +312,7 @@ document.addEventListener("click", async (event) => {
             cargarInventario();
         } catch (error) {
             console.error("❌ Error al eliminar el producto:", error);
-            alert("Error al eliminar el producto. Revisa la consola para más detalles.");
+            showAlert("Error al eliminar el producto.", 'error');
         }
     }
 });

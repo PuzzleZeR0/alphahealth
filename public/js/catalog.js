@@ -91,7 +91,7 @@ async function agregarAlCarrito(e) {
         }, 1500);
     } catch (error) {
         console.error("Error al agregar al carrito:", error);
-        alert("Hubo un problema al agregar el producto al carrito.");
+        showAlert('Hubo un problema al agregar el producto al carrito.', 'error');
     }
 }
 

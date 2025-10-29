@@ -130,7 +130,7 @@ async function obtenerProductosDelCarrito() {
         contenedorCarritoComprado.classList.remove("disable");
     } catch (error) {
         console.error('Error al procesar la compra:', error);
-        alert('Error en la compra: ' + error.message);
+        showAlert('Error en la compra: ' + error.message, 'error');
     }
 }
 
@@ -160,6 +160,6 @@ document.addEventListener('DOMContentLoaded', cargarProductosCarrito);
 //         contenedorCarritoComprado.classList.remove("disable");
 //     } catch (error) {
 //         console.error('Error al procesar la compra:', error);
-//         alert('Error en la compra: ' + error.message);
+//         showAlert('Error en la compra: ' + error.message, 'error');
 //     }
 // }

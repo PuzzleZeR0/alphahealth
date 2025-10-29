@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error(error.message);
-            alert('No se pudieron cargar las citas.');
+            showAlert('No se pudieron cargar las citas.', 'error');
         }
     }
 
@@ -83,14 +83,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(data.error || 'Error al crear la cita');
             }
 
-            alert('Cita creada exitosamente');
+            showAlert('Cita creada exitosamente', 'success');
             formCita.reset();
             formularioDiv.classList.add('hidden');
             cargarCitas(); // Recargar la tabla
 
         } catch (error) {
             console.error(error.message);
-            alert(error.message);
+            showAlert(error.message, 'error');
         }
     });
 

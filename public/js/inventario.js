@@ -49,13 +49,13 @@ async function cargarInventario() {
     const stockStr = document.querySelector("#stockproducto").value.trim();
   
     if (!id || !titulo || !precioStr || !stockStr) {
-      alert("Por favor, completa todos los campos.");
+      showAlert("Por favor, completa todos los campos.", 'warning');
       return;
     }
     const precio = parseFloat(precioStr);
     const stock = parseInt(stockStr);
     if (isNaN(precio) || isNaN(stock)) {
-      alert("Por favor, ingresa valores numéricos válidos para precio y stock.");
+      showAlert("Por favor, ingresa valores numéricos válidos para precio y stock.", 'warning');
       return;
     }
     try {
@@ -141,7 +141,7 @@ async function cargarInventario() {
         cargarInventario();
       } catch (error) {
         console.error("Error al actualizar el producto:", error);
-        alert("Error al actualizar el producto. Revisa la consola para más detalles.");
+        showAlert("Error al actualizar el producto.", 'error');
       }
     }
   });
@@ -162,7 +162,7 @@ async function cargarInventario() {
         cargarInventario();
       } catch (error) {
         console.error("Error al eliminar el producto:", error);
-        alert("Error al eliminar el producto. Revisa la consola para más detalles.");
+        showAlert("Error al eliminar el producto.", 'error');
       }
     }
   });

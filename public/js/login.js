@@ -39,15 +39,15 @@ signupForm.querySelector('form').addEventListener('submit', async (e) => {
 
         // Manejar la respuesta del backend
         if (response.ok) {
-            alert(data.message); // Mostrar mensaje de éxito
+            showAlert(data.message, 'success');// Mostrar mensaje de éxito
             loginForm.classList.remove('hidden'); // Cambiar al formulario de inicio de sesión
             signupForm.classList.add('hidden'); // Ocultar el formulario de registro
         } else {
-            alert(data.error); // Mostrar mensaje de error
+            showAlert(data.error, 'error');// Mostrar mensaje de error
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Error al registrar el usuario'); // Mostrar mensaje de error genérico
+        showAlert('Error al registrar el usuario', 'error'); // Mostrar mensaje de error genérico
     }
 });
 
@@ -83,6 +83,6 @@ loginForm.querySelector('form').addEventListener('submit', async (e) => {
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Error al iniciar sesión'); // Mostrar mensaje de error genérico
+        showAlert('Error al iniciar sesión', 'error'); // Mostrar mensaje de error genérico
     }
 });

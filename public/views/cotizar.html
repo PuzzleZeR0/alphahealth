@@ -127,17 +127,73 @@
             <p class="mt-5">En este apartado podrás visualizar los tratamientos que ofrecemos y sus respectivos precios.
             </p>
             <div class="mt-10">
-                <label for="">Tratamiento</label>
-                <select class="input" name="tratamiento" id="tratammientos">
-                    <option value="blanqueamiento">Blanqueamiento - $300.000</option>
-                    <option value="carillas">Carillas - $500.000</option>
-                    <option value="coronas">Coronas - $400.000</option>
-                    <option value="endodoncia">Endodoncia - $250.000</option>
-                    <option value="implantes">Implantes - $800.000</option>
-                    <option value="ortodoncia">Ortodoncia - $1.200.000</option>
-                    <option value="limpieza">Limpieza - $150.000</option>
-                    <option value="extraccion">Extracción - $200.000</option>
-                </select>
+                <label>Tratamiento</label>
+                <div class="mt-20 justify-center">
+                    <div class="neumorphic-select-wrapper">                    
+                        <div class="neumorphic-select-trigger" id="select-trigger">
+                            <span id="select-trigger-text">Selecciona un tratamiento...</span>
+                            <span class="select-arrow">▼</span>
+                        </div>
+
+                        <div class="neumorphic-select-options" id="select-options">
+                            
+                            <div class="neumorphic-select-option" data-value="blanqueamiento" data-tratamiento="Blanqueamiento" data-precio="$300.000">
+                            Blanqueamiento - $300.000
+                            </div>
+                            <div class="neumorphic-select-option" data-value="carillas" data-tratamiento="Carillas" data-precio="$500.000">
+                            Carillas - $500.000
+                            </div>
+                            <div class="neumorphic-select-option" data-value="coronas" data-tratamiento="Coronas" data-precio="$400.000">
+                            Coronas - $400.000
+                            </div>
+                            <div class="neumorphic-select-option" data-value="endodoncia" data-tratamiento="Endodoncia" data-precio="$250.000">
+                            Endodoncia - $250.000
+                            </div>
+                            <div class="neumorphic-select-option" data-value="implantes" data-tratamiento="Implantes" data-precio="$800.000">
+                            Implantes - $800.000
+                            </div>
+                            <div class="neumorphic-select-option" data-value="ortodoncia" data-tratamiento="Ortodoncia" data-precio="$1.200.000">
+                            Ortodoncia - $1.200.000
+                            </div>
+                            <div class="neumorphic-select-option" data-value="limpieza" data-tratamiento="Limpieza" data-precio="$150.000">
+                            Limpieza - $150.000
+                            </div>
+                            <div class="neumorphic-select-option" data-value="extraccion" data-tratamiento="Extracción" data-precio="$200.000">
+                            Extracción - $200.000
+                            </div>
+                            
+                        </div>
+
+                        <select id="tratammientos" name="tratamiento" style="display: none;">
+                            <option value="" disabled selected hidden></option>
+                            <option value="blanqueamiento"></option>
+                            <option value="carillas"></option>
+                            <option value="coronas"></option>
+                            <option value="endodoncia"></option>
+                            <option value="implantes"></option>
+                            <option value="ortodoncia"></option>
+                            <option value="limpieza"></option>
+                            <option value="extraccion"></option>
+                        </select>
+
+                    </div>
+                    <div class="card" id="info-card">
+                            <div class="bg">
+                                <div class="card-content">
+                                    <h3 class="card-title">Tratamiento Seleccionado</h3>
+                                    <p class="card-tratamiento" id="card-tratamiento">...</p>
+                                    <div class="card-footer">
+                                        <span class="card-label">Precio:</span>
+                                        <span class="card-precio" id="card-precio">...</span>
+                                    </div>
+                                    <input type="button" class="btn-secundary mt-20" value="Solicitar cita" onclick="location.href='citas.html'">
+                                </div>
+                            </div>
+                        <div class="blob">
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </main>
@@ -149,6 +205,7 @@
     </footer>
 
     <script src="../js/general.js" ></script>
+    <script src="../js/select.js"></script>
     <!-- Quitar el auth si se quiere ver por individual -->
     <!-- <script src="../js/auth.js"></script>  -->
 </body>

@@ -26,8 +26,8 @@
     --btn-sucess:rgb(83, 207, 0);
     --btn-sucess-op:rgba(0, 123, 16, 0.371);
     --color-white:#FFFFFF;
-    --color-blue:#02b1f4;
-    --color-blue-op:rgba(2, 175, 244, 0.466);
+    --color-blue:#006aff;
+    --color-blue-op:rgba(6, 7, 7, 0.466);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
@@ -46,6 +46,13 @@
 .container {
     max-width: 1100px;
     margin: 0 auto;
+}
+
+.justify-center{
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
+    align-items: center;
 }
 
 .d-flex-b{
@@ -291,7 +298,7 @@
 
     .barraLateral .navegation a:hover span,.barraLateral .navegation a:hover i{
         transition: all 0.4s ease-in-out;
-        color: #02b1f4;
+        color: var(--color-blue);
     }
 
 /* Clase especial para boton principal */
@@ -498,6 +505,137 @@ input:focus{
     background: var(--color-input-focus);
     transition: all 0.4s ease-in-out;
 }
+
+/* 1. El contenedor principal */
+.neumorphic-select-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  /* Ya no usamos monospace, usamos la fuente del body */
+}
+
+/* 2. El "botón" visible (tu estilo de botón) */
+.neumorphic-select-trigger {
+  color: #090909;
+  padding: 0.7em 1.7em;
+  font-size: 18px;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow:
+    -3px -10px 15px #ffffff,
+    -3px -5px 8px #ffffff,
+    -10px 0px 15px #ffffff,
+    3px 10px 12px rgba(0, 0, 0, 0.2);
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Añadido para evitar que el texto se seleccione */
+  user-select: none;
+}
+.neumorphic-select-trigger:hover {
+  border: 1px solid white;
+}
+.neumorphic-select-trigger.active {
+  box-shadow: 4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff;
+}
+
+/* Texto del placeholder */
+#select-trigger-text {
+  color: #6d6d6d; 
+}
+#select-trigger-text.selected {
+  color: #090909; 
+}
+
+.select-arrow {
+  font-size: 14px;
+  color: #090909;
+  transition: transform 0.3s ease;
+}
+.neumorphic-select-trigger.active .select-arrow {
+  transform: rotate(180deg);
+}
+
+/* 3. La lista de opciones */
+.neumorphic-select-options {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  
+  position: absolute;
+  z-index: 1000;
+  top: calc(100% + 10px); 
+  left: 0;
+  width: 100%;
+  
+  background: #e8e8e8;
+  border-radius: 0.5em;
+  box-shadow:
+    -3px -10px 15px #ffffff,
+    -3px -5px 8px #ffffff,
+    -10px 0px 15px #ffffff,
+    3px 10px 12px rgba(0, 0, 0, 0.2);
+  padding: 0.5em;
+  transition: all 0.3s ease;
+}
+.neumorphic-select-options.open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 4. Cada opción individual */
+.neumorphic-select-option {
+  padding: 0.7em 1.2em;
+  font-size: 18px;
+  color: #090909;
+  cursor: pointer;
+  border-radius: 0.3em;
+  transition: background 0.2s ease;
+  user-select: none;
+}
+.neumorphic-select-option:hover {
+  background: #e8e8e8;
+  box-shadow: inset 4px 4px 8px #c5c5c5, inset -4px -4px 8px #ffffff;
+}
+
+
+/* --- ESTILOS DE LA TARJETA (SIN CAMBIOS) --- */
+
+.card {
+  position: relative;
+  width: 300px; 
+  height: 280px;
+  border-radius: 14px;
+  z-index: 900;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 10px 10px 30px #bebebe, -10px -10px 30px #ffffff;
+  margin-top: 25px; 
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  visibility: hidden;
+}
+.card.visible { opacity: 1; transform: translateY(0); visibility: visible; }
+.bg { position: absolute; top: 5px; left: 5px; width: 290px; height: 270px; z-index: 2; background: rgba(255, 255, 255, .95); backdrop-filter: blur(24px); border-radius: 10px; overflow: hidden; outline: 2px solid white; }
+.blob { position: absolute; z-index: 1; top: 50%; left: 50%; width: 200px; height: 200px; border-radius: 50%; background-color: #006aff; opacity: 1; filter: blur(12px); animation: blob-bounce 5s infinite ease; }
+@keyframes blob-bounce { 0%{transform: translate(-100%, -100%) translate3d(0, 0, 0);} 25%{transform: translate(-100%, -100%) translate3d(100%, 0, 0);} 50%{transform: translate(-100%, -100%) translate3d(100%, 100%, 0);} 75%{transform: translate(-100%, -100%) translate3d(0, 100%, 0);} 100%{transform: translate(-100%, -100%) translate3d(0, 0, 0);} }
+.card-content { padding: 24px; }
+.card-title { margin: 0 0 16px 0; font-size: 1rem; font-weight: 600; color: #6c757d; border-bottom: 1px solid #f1f3f5; padding-bottom: 12px; }
+.card-tratamiento { font-size: 1.3rem; font-weight: 700; color: #212529; margin: 0 0 16px 0; min-height: 40px; }
+.card-footer { display: flex; justify-content: space-between; align-items: center; background: transparent; padding: 14px 0; border-top: 1px solid #f1f3f5; }
+.card-label { font-size: 0.9rem; color: #6c757d; font-weight: 500; }
+.card-precio { font-size: 1.25rem; font-weight: 700; color: #006aff; }
+
+
 /* ESTILO PARA TABLAS */
 table {
     width: 100%;
@@ -592,7 +730,7 @@ h1{
 
 .barraLateral .navegation #inicio i,
 .barraLateral .navegation #inicio span {
-    color: #02b1f4;
+    color: var(--color-blue);
 }
 
 /*-------------------------------------------------------------------main------------------ */
@@ -613,7 +751,7 @@ main.min-main{
     border-radius: 15px;
     padding: 30px;
     transition: all 0.4s ease-in-out;
-    background-color: var(--bg-portada);
+    background-color: var(--bg-light);
     margin-bottom: 50px;
 }
 

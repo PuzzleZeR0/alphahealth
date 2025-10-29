@@ -6,7 +6,6 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/masterStyle.css">
     <link rel="stylesheet" href="../css/ajustes.css">
-    <link rel="stylesheet" href="../css/inicio.css">
     <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
     <title>Users</title>
 </head>
@@ -28,7 +27,7 @@
         </div>
 
         <div>
-        <button id="inicio" type="submit" class="btn-focus">
+        <button id="inicio" type="submit" class="btn">
             <div class="btn-small-content">
                 <a href="../views/inicio.html">
                 <i class='bx bx-home-alt-2'></i>
@@ -150,6 +149,7 @@
             </div>
             
             <button id="edit-button" class="btn-secundary js-open-modal" data-target="#edit-profile-modal">
+                <i class='bx bx-edit'></i>
                 Editar perfil
             </button>
         </div>
@@ -237,32 +237,77 @@
                         
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Diabetes</h4>
-                                <input type="checkbox" id="">
+                                <h4 class="mb-10">Diabetes</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="diabetes-parent" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="diabetes-parent" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Hipertensión arterial</h4>
-                                <input type="checkbox" id="">
+                                <h4 class="mb-10">Hipertensión arterial</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="hipertension-parent" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="hipertension-parent" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Cáncer (especificar tipo y parentesco)</h4>
+                                <h4 class="mb-10">Cáncer (especificar tipo y parentesco)</h4>
                                 <input type="text" id="">
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Enfermedades del corazón</h4>
-                                <input type="checkbox" id="">
+                                <h4 class="mb-10">Enfermedades del corazón</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="e-corazon-parent" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="e-corazon-parent" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
                                 <h4>Enfermedades neurológicas (ej. Alzheimer, epilepsia)</h4>
-                                <input type="checkbox" id="">
+                                <input type="text" id="">
                             </div>
                         </div>
                         <div class="item-fb mb-10">
@@ -281,52 +326,180 @@
                         
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Diabetes</h4>
-                                <input type="checkbox" id="">
+                                <h4 class="mb-10">Diabetes</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="diabetes-personal" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="diabetes-personal" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Hipertensión arterial</h4>
-                                <input type="date" id="">
+                                <h4 class="mb-10">Hipertensión arterial</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="hipertension-personal" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="hipertension-personal" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Problemas del corazón</h4>
-                                <input type="number" id="">
+                                <h4 class="mb-10">Problemas del corazón</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="corazon-personal" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="corazon-personal" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>fiebre reumática</h4>
-                                <input type="text" id="">
+                                <h4 class="mb-10">fiebre reumática</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="fiebre-personal" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="fiebre-personal" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Tiroides</h4>
-                                <input type="text" id="">
+                                <h4 class="mb-10">Tiroides</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="tiroides-personal" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="tiroides-personal" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Asma</h4>
-                                <input type="text" id="">
+                                <h4 class="mb-10">Asma</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="asma-personal" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="asma-personal" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Problemas renales (diálisis)</h4>
-                                <input type="text" id="">
+                                <h4 class="mb-10">Problemas renales (diálisis)</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="p-renales-personal" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="p-renales-personal" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="item-fb mb-10">
                             <div class="flex-column">
-                                <h4>Relujo gástrico - Gastritis</h4>
-                                <input type="text" id="">
+                                <h4 class="mb-10">Relujo gástrico - Gastritis</h4>
+                                <div class="plan-select-wrapper">
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="gastritis-personal" value="basic" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">Si</div>
+                                        </label>
+                                    </div>
+                                    <div class="plan-select-card">
+                                        <input class="plan-select-input" type="radio" name="gastritis-personal" value="premium" />
+                                        <span class="plan-select-check"></span>
+                                        <label class="plan-select-label">
+                                        <div class="plan-select-title">No</div>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="flex-around">
+                    <div class="ml-20">
+                        <button type="submit" class="btn-secundary"><i class='bx bx-save' ></i> Guardar</button>
+                    </div>
+                    <div class="ml-20">
+                        <button type="button" class="btn-danger js-close-modal"><i class='bx bx-user-x'></i> Cancelar</button>
                     </div>
                 </div>
                 

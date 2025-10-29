@@ -12,11 +12,21 @@ const getUserProfileUseCase = async (userId) => {
     // const user = await userRepository.findById(userId); // Necesitarías crear esta función en el repo
     // if (!user) throw new Error('Usuario no encontrado.');
 
-    const profile = await userRepository.findProfileByUserId(userId);
+    const user = await userRepository.findUserById(userId);
+    if (!user) {
+         // Si el usuario no existe (raro si está autenticado), devolver vacío o error
+         return {};
+         // Opcional: throw new Error('Usuario no encontrado.');
+    }
 
+    const profile = await userRepository.findProfileByUserId(userId);
+    
     // Aquí podrías combinar datos del usuario y del perfil si fuera necesario
     // Por ahora, solo devolvemos el perfil o un objeto vacío si no existe
-    return profile || {};
+    return {
+        ...user,    // Incluye id, nombre, email de la tabla users
+        ...(profile || {}) // Incluye todos los campos de user_profiles si existen, si no, no añade nada
+    };
 };
 
 /**
@@ -29,6 +39,20 @@ const updateUserProfileUseCase = async (userId, profileData) => {
     if (!profileData || Object.keys(profileData).length === 0) {
         throw new Error('No se proporcionaron datos para actualizar el perfil.');
     }
+
+    const { nombre, ...restOfProfileData } = profileData;
+
+    // 1. Actualizar el nombre en la tabla 'users' si se proporcionó
+    if (nombre !== undefined && nombre !== null && nombre.trim() !== '') {
+         // Opcional: Podrías verificar si el nombre es diferente al actual antes de actualizar
+         await userRepository.updateUserName(userId, nombre.trim());
+    }
+
+    if (Object.keys(restOfProfileData).length > 0) {
+        await userRepository.upsertProfile(userId, restOfProfileData);
+    }
+
+    // Devolver un mensaje genérico o los datos actualizados si se quiere
 
     // Aquí podrías añadir validaciones más complejas si fuera necesario
     // (ej: validar formato de fecha, teléfono, etc.)

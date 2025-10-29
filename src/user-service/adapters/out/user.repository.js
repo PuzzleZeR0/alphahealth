@@ -1,6 +1,16 @@
 // puzzlezer0/alphahealth/alphahealth-9ff70f5394a43fcdb875334e0d00e4eb39f098f9/src/adapters/out/user.repository.js
 const { pool } = require('../../infrastructure/database.js');
 
+const findUserById = async (userId) => {
+    const [rows] = await pool.query('SELECT id, nombre, email FROM users WHERE id = ?', [userId]);
+    return rows[0] || null;
+};
+
+const updateUserName = async (userId, nombre) => {
+    const [result] = await pool.query('UPDATE users SET nombre = ? WHERE id = ?', [nombre, userId]);
+    return result;
+};
+
 const findByEmail = async (email) => {
     const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
     return rows[0];
@@ -109,5 +119,7 @@ module.exports = {
     findByEmail,
     createUser,
     findProfileByUserId, 
-    upsertProfile        
+    upsertProfile,
+    findUserById,      
+    updateUserName      
 };

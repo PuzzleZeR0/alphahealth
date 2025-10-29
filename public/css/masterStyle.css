@@ -972,6 +972,135 @@ main.min-main{
         margin-left: 47px;
     }
 }
+/* ==============================================================================
+Diseño de banners de avisos
+============================================================================== */
+
+
+/* --- Contenedor de Alertas --- */
+.alert-container {
+  padding: 1rem;
+  width: 90%;
+  max-width: 400px; /* Ancho máximo */
+}
+.alert-container > * + * {
+  margin-top: 0.75rem; /* Separación vertical */
+}
+
+/* --- Estilos Comunes de Alerta --- */
+.alert {
+  /* Tamaño y forma */
+  padding: 0.75rem 1rem; /* Más compacto (menos alto) */
+  border-radius: 10px; /* Bordes redondeados */
+  
+  /* Flexbox */
+  display: flex;
+  align-items: center;
+  
+  /* Quitar bordes, la magia es con box-shadow */
+  border: none;
+  
+  /* Transición */
+  transition: all 0.2s ease-in-out;
+}
+
+/* --- El CÍRCULO del Icono --- */
+.alert-icon-wrapper {
+  width: 1.4rem;  /* 22px */
+  height: 1.4rem; /* 22px */
+  border-radius: 50%; /* Círculo perfecto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 0.75rem; /* Espacio antes del texto */
+}
+
+/* --- El SVG ('i') dentro del círculo --- */
+.alert-icon {
+  font-size: 1.5rem;
+}
+
+/* --- Mensaje de Texto --- */
+.alert-message {
+  font-size: 0.95rem;
+  font-weight: 600; /* semibold */
+  line-height:0 ;
+  color: #ffffff; /* Texto blanco */
+}
+
+
+/* --- 
+  Variantes de Color (¡Aquí está la magia!)
+--- */
+
+/* SUCCESS (Green) */
+.alert-success {
+  background-color: #1a5e20; /* Fondo oscuro */
+  /* El resplandor izquierdo con el color brillante */
+  box-shadow: inset 10px 0 0px -5px #38b146;
+}
+  .alert-success .alert-icon-wrapper {
+    background-color: #1a5e20; /* Círculo color brillante */
+  }
+  .alert-success .alert-icon{
+    color: #38b146 !important /* 'i' del color del fondo (calado) */
+  }
+
+  .alert-success:hover {
+    transform: scale(1.02);
+    box-shadow: inset 10px 0 20px -5px #38b146;
+  }
+
+/* INFO (Blue) */
+.alert-info {
+  background-color: #2b3986;
+  box-shadow: inset 10px 0 0px -5px #3f60b4;
+}
+.alert-info .alert-icon-wrapper {
+  background-color: #2b3986;
+}
+.alert-info .alert-icon {
+  color: #5382f8 !important
+}
+  .alert-info:hover {
+    transform: scale(1.02);
+    box-shadow: inset 10px 0 20px -5px #5382f8;
+  }
+
+/* WARNING (Yellow/Orange) */
+.alert-warning {
+  background-color: #8c5d19;
+  box-shadow: inset 10px 0 0px -5px #f7a002;
+}
+.alert-warning .alert-icon-wrapper {
+  background-color: #8c5d19;
+}
+.alert-warning .alert-icon {
+  color: #ffac11;
+}
+  .alert-warning:hover {
+    transform: scale(1.02);
+    box-shadow: inset 10px 0 20px -5px #ffac11;
+  }
+
+/* ERROR (Red) */
+.alert-error {
+  background-color: #8c2a26;
+  box-shadow: inset 10px 0 0px -5px #e44f49;
+}
+.alert-error .alert-icon-wrapper {
+  background-color: #8c2a26;
+}
+.alert-error .alert-icon {
+  color: #fa6660;
+}
+  .alert-error:hover {
+    transform: scale(1.02);
+    box-shadow: inset 10px 0 20px -5px #fa6660;
+  }
+
+
 /* =============================================================== */
 /* --- Estilos del Modal --- */
 /* ============================================================================= */

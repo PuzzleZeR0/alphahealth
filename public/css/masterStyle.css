@@ -158,7 +158,7 @@
     border-radius: 20px; */
     display: flex;
     margin-bottom: 30px;
-  padding: 0;
+  padding:4px;
   width: 100%; /* Smaller width */
   height: max-content; /* Smaller height */
   border: 2px solid #888888;
@@ -174,6 +174,111 @@
   cursor: pointer;
 
 }
+
+/* ---------------------Botones barra lateral--------------------------------------- */
+/* From Uiverse.io by Cksunandh */ 
+.btn-small {
+  display: flex;
+  margin-bottom: 30px;
+  position: relative;
+  padding: 0;
+  width: 100%; /* Smaller width */
+  height: max-content; /* Smaller height */
+  border: 2px solid #888888;
+  outline: none;
+  background-color: #f4f5f6;
+  border-radius: 20px; /* Adjusted border-radius */
+  box-shadow:
+    -3px -10px 15px #ffffff,
+    -3px -5px 8px #ffffff,
+    -10px 0px 15px #ffffff,
+    3px 10px 12px rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease-in-out; /* Smooth animation */
+  cursor: pointer;
+}
+
+/* Hover animation: Scaling the button and adjusting shadow */
+.btn-small:hover {
+  transform: scale(1.05); /* Button grows slightly */
+  box-shadow:
+    -3px -15px 20px #ffffff,
+    -3px -10px 10px #ffffff,
+    -10px 0px 15px #ffffff,
+    5px 15px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Active click animation */
+.btn-small:active {
+  transform: scale(0.95); /* Button shrinks slightly */
+  box-shadow: none; /* Shadow disappears when clicked */
+}
+
+.btn-small-content {
+  display: flex;
+  padding-bottom: 16px; /* Smaller padding */
+  width: 100%;
+  height: max-content;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  box-shadow:
+    inset 0px -4px 0px #dddddd,
+    0px -4px 0px #f4f5f6;
+  border-radius: 20px;
+  transition: 0.3s ease-in-out; /* Smooth animation */
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon hover effect: Floating effect */
+.btn-small-icon {
+  margin: 5px;
+  position: relative;
+  display: flex;
+  transform: translate3d(0px, -2px, 0px);
+  grid-column: 4;
+  align-self: center;
+  justify-self: start;
+  width: 16px; /* Smaller icon size */
+  height: 16px;
+  transition: 0.3s ease-in-out; /* Smooth hover animation */
+}
+
+/* Hover effect on icon */
+.btn-small:hover .btn-small-icon .btn-small-text {
+  transform: translateY(-8px); /* Move the icon up slightly on hover */
+}
+
+/* Icon styling */
+.btn-small-icon svg {
+  width: 16px; /* Smaller icon */
+  height: 16px;
+  fill: #aaaaaa;
+}
+
+/* Text hover effect: Floating effect */
+.btn-small-text {
+  position: relative;
+  transform: translate3d(0px, -2px, 0px); /* Smaller translation */
+  margin: 0;
+  align-self: end;
+  grid-column: 1 / 5;
+  grid-row: 2;
+  text-align: center;
+  font-size: 16px; /* Smaller font size */
+  background-color: #888888;
+  color: transparent;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: 0.3s ease-in-out;
+}
+
+/* Hover effect on text */
+.btn-small:hover .btn-small-text {
+  transform: translateY(-5px); /* Move the text up slightly on hover */
+}
+
 
     .barraLateral .navegation a:hover{
         transform: scale(1.05); /* Button grows slightly */
@@ -192,21 +297,47 @@
 /* Clase especial para boton principal */
 
 /* clase para botones globales */
-.btn {
-    white-space: nowrap;
-    width: fit-content;
-    padding: 8px 16px;
-    height: 40px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 10px;
-    outline: none;
-    font-size: 15px;
-    box-shadow: 0 5px 2px 0px var(--color-shadow);
-    background-color: var(--color-btn);
-    transition: all 0.4s ease-in-out;
-    cursor: pointer;
+#btn-cerrar{
+    color: var(--color-danger);
+    
 }
+    #btn-cerrar:hover{
+    scale: 1.3;
+    
+    }
+
+.btn {
+    display: flex;
+  margin-bottom: 70px;
+  padding: 0;
+  width: 100%; /* Smaller width */
+  height: 45px; /* Smaller height */
+  border: 2px solid #888888;
+  outline: none;
+  background-color: #f4f5f6;
+  border-radius: 20px; /* Adjusted border-radius */
+  box-shadow:
+    -3px -10px 15px #ffffff,
+    -3px -5px 8px #ffffff,
+    -10px 0px 15px #ffffff,
+    3px 10px 12px rgba(0, 0, 0, 0.2);
+  transition: 0.3s ease-in-out; /* Smooth animation */
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn a{
+    display: flex;
+    align-items: center;
+
+}
+
+.btn i{
+    min-width:50px;
+    font-size: 25px;
+}
+
     .btn:hover{
         background-color: var(--color-orange);
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -319,6 +450,29 @@
         transform: scale(1.2);
     }
 
+.input{
+    width: 75%;
+    text-indent: 15px;
+    height: 40px;
+    margin: 10px 0;
+    padding-right: 30px;
+    border: none;
+    border-radius: 15px;
+    outline: none;
+    font-size: 15px;
+    box-shadow: 0 5px 4px 0px var(--color-shadow);
+    background-color: var(--color-input);
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+}
+    .input:hover{
+        transition: all 0.4s ease-in-out;
+        background: var(--color-input-hover);
+    }
+    .input:focus{
+        background: var(--color-input-focus);
+        transition: all 0.4s ease-in-out;   
+    }
 
 input{
     width: 75%;
@@ -376,7 +530,7 @@ h1{
     overflow: hidden;
     position: fixed;
     box-shadow: 0 -90px #FAFAFA;
-    z-index: 9999;
+    z-index: 1000;
 }
 
 .barraLateral span{
@@ -399,6 +553,7 @@ h1{
 
 .miniBarra{
     width: 45px;
+    align-items: center;
 }
 
 .barraLateral .nombrePagina{
@@ -499,3 +654,226 @@ main.min-main{
         margin-left: 47px;
     }
 }
+/* =============================================================== */
+/* --- Estilos del Modal --- */
+/* ============================================================================= */
+/* 1. El fondo oscuro (overlay) */
+.modal-overlay {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 2. Clase que JavaScript usa para MOSTRAR el modal */
+.modal-overlay.visible {
+  display: flex; /* <-- ESTO LO HACE VISIBLE */
+}
+
+/* 3. La caja blanca del modal */
+.modal-content {
+  position: relative;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  max-height: 90vh;
+  overflow-y: auto;
+  width: 90%;
+  max-width: 60%;
+  transition: transform 0.3s ease-in-out;
+}
+    .modal-content {
+    /* 1. Permite el scroll horizontal cuando sea necesario */
+    overflow-x: auto;
+
+    /* --- Código para ocultar la barra de scroll --- */
+
+    /* Para Firefox */
+    scrollbar-width: none;
+    
+    /* Para Internet Explorer y Edge (versiones viejas) */
+    -ms-overflow-style: none;
+    }
+    .modal-content::-webkit-scrollbar {
+    display: none;
+    }
+/* 4. El botón de cerrar (la 'X') */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+}
+.modal-close:hover {
+  color: #000;
+}
+
+/* ================================================================
+Boton de ajustes
+================================================================ */
+.main > .inp {
+  display: none;
+}
+.main {
+  font-weight: 800;
+  padding: 3px 15px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  width: max-content;
+  position: relative;
+  cursor: pointer;
+  justify-content: space-between;
+}
+
+.arrow {
+  height: 34%;
+  aspect-ratio: 1;
+  margin-block: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.arrow::after,
+.arrow::before {
+  content: "";
+  position: absolute;
+  background-color: black;
+  height: 100%;
+  width: 2.5px;
+  border-radius: 500px;
+  transform-origin: bottom;
+}
+
+.arrow::after {
+  transform: rotate(35deg) translateX(-0.5px);
+}
+.arrow::before {
+  transform: rotate(-35deg) translateX(0.5px);
+}
+
+.main > .inp:checked + .arrow {
+  transform: rotateX(180deg);
+}
+
+.menu-container {
+  background-color: var(--bg-light);
+  border-radius: 10px;
+  position: absolute;
+  width: 100%;
+  right: -5px;
+  top: 130%;
+  overflow: hidden;
+  clip-path: inset(0% 0% 0% 0% round 10px);
+  transition: all 0.4s;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.menu-list {
+  --delay: 0.4s;
+  --trdelay: 0.15s;
+  padding: 8px 10px;
+  position: relative;
+  transform: translateY(30px);
+  opacity: 0;
+  color: var(--color-black);
+  display: flex;
+  align-items: center;
+  transition: all 0.4s ease-in-out;
+}
+
+.menu-list::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 95%;
+  transition: all 0.4s ease-in-out;
+}
+
+.menu-list:hover {
+  background-color: rgb(223, 223, 223);
+  transition: all 0.4s ease-in-out;
+}
+    .menu-list:hover i,.menu-list:hover h6 {
+    color: var(--color-blue);
+    transition: all 0.4s ease-in-out;
+    }
+
+.inp:checked ~ .menu-container {
+  clip-path: inset(10% 50% 90% 50% round 10px);
+}
+
+.inp:not(:checked) ~ .menu-container .menu-list {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.inp:not(:checked) ~ .menu-container .menu-list:nth-child(1) {
+  transition:
+    transform 0.4s var(--delay),
+    opacity 0.4s var(--delay);
+}
+
+.inp:not(:checked) ~ .menu-container .menu-list:nth-child(2) {
+  transition:
+    transform 0.4s calc(var(--delay) + (var(--trdelay) * 1)),
+    opacity 0.4s calc(var(--delay) + (var(--trdelay) * 1));
+}
+
+.inp:not(:checked) ~ .menu-container .menu-list:nth-child(3) {
+  transition:
+    transform 0.4s calc(var(--delay) + (var(--trdelay) * 2)),
+    opacity 0.4s calc(var(--delay) + (var(--trdelay) * 2));
+}
+
+.inp:not(:checked) ~ .menu-container .menu-list:nth-child(4) {
+  transition:
+    transform 0.4s calc(var(--delay) + (var(--trdelay) * 3)),
+    opacity 0.4s calc(var(--delay) + (var(--trdelay) * 3));
+}
+
+.bar-inp {
+  -webkit-appearance: none;
+  display: none;
+  visibility: hidden;
+}
+
+.bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.bar-list {
+  --transform: -25%;
+  display: block;
+  width: 100%;
+  height: 3px;
+  border-radius: 50px;
+  background-color: var(--bg-divs);
+  transition: all 0.4s;
+  position: relative;
+}
+
+.inp:not(:checked) ~ .bar > .btn-ico i {
+  color: var(--color-blue);
+}
+

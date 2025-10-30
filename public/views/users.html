@@ -141,8 +141,14 @@
                 <i class='bx bx-edit'></i>
                 Editar información
             </button>
-        </div>
 
+            <button id="edit-button" class="btn-secundary js-open-modal" data-target="#edit-dates-profile">
+                <i class='bx bx-edit'></i>
+                Editar datos de la cuenta
+            </button>
+
+        </div>
+        <!-- modal para informacion de perfil -->
         <div id="edit-profile-modal" class="modal-overlay">
             <div class="modal-content">
 
@@ -469,6 +475,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="flex-around">
                     <div class="ml-20">
                         <button type="submit" id="btn-guardar-perfil" class="btn-secundary"><i class='bx bx-save' ></i> Guardar</button>
@@ -480,6 +487,50 @@
                 
             </div> 
         </div>
+
+        <!-- modal para datos de la cuenta -->
+         <div id="edit-dates-profile" class="modal-overlay">
+            <div class="modal-content">
+
+                <span class="modal-close js-close-modal"><i id="btn-cerrar" class="bx bx-x bx-tada"></i></span>
+                
+                <div class="portada" id="card-2">
+                    <h3>Datos de la cuenta</h3>
+                    <div class="mt-20 flex-beetwen">
+                        
+                        <div class="item-fb mb-10">
+                            <div class="flex-column">
+                                <h4>Nombre</h4>
+                                <label for="">ivan robelro</label>
+                        </div>
+                        <div class="item-fb mb-10">
+                            <div class="flex-column">
+                                <h4>Correo</h4>
+                                <label for=""></label>
+                                <input type="email" id=""> 
+                            </div>
+                        </div>
+                        <div class="item-fb mb-10">
+                            <div class="flex-column">
+                                <h4>Contraseña</h4>
+                                <input type="password" id=""> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-around">
+                    <div class="ml-20">
+                        <button type="submit" id="btn-guardar-perfil" class="btn-secundary"><i class='bx bx-save' ></i> Guardar</button>
+                    </div>
+                    <div class="ml-20">
+                        <button type="button" class="btn-danger js-close-modal"><i class='bx bx-user-x'></i> Cancelar</button>
+                    </div>
+                </div>
+                
+            </div> 
+        </div>
+
     </main>
 
     <footer class="footer">

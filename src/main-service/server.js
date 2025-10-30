@@ -22,11 +22,18 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        "connect-src": ["'self'", "http://localhost:3003"], // Permite conexiones a sí mismo y al servicio de usuarios
+        
+        // 1. Para permitir la conexión al servicio de usuarios (login, perfil)
+        // 2. Y para permitir la conexión a animatedicons.co (para cargar el JSON)
+        "connect-src": ["'self'", "http://localhost:3003", "https://animatedicons.co"], 
+        
+        // 3. Para permitir los scripts de tu app, animatedicons, y lottie (cloudflare)
+        "script-src": ["'self'", "https://animatedicons.co", "https://cdnjs.cloudflare.com"]
       },
     },
   })
 );
+// --- FIN DE LA CONFIGURACIÓN DE HELMET ---
 // --- FIN DE LA CONFIGURACIÓN DE HELMET ---
 
 app.use(express.json());

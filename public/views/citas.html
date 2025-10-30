@@ -184,6 +184,31 @@
                     </tbody>
             </table>
         </div>
+
+        </div>
+
+        <div id="perfil-incompleto-modal" class="modal-overlay">
+            <div class="modal-content" style="max-width: 500px; text-align: center;">
+                <span class="modal-close js-close-modal"><i id="btn-cerrar-aviso" class="bx bx-x"></i></span>
+                
+                <h3>Perfil Incompleto</h3>
+                
+                <p class="mt-10 mb-20">
+                    Para poder agendar una cita, es necesario que completes
+                    tu información de perfil clínico primero.
+                </p>
+                
+                <div class="flex-around">
+                    <button type="button" class="btn-secundary" id="btn-ir-a-perfil">
+                        <i class='bx bx-user-circle'></i> Completar Perfil
+                    </button>
+                    <button type="button" class="btn-danger js-close-modal">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer class="footer">
@@ -193,7 +218,7 @@
     </footer>
 
     <script src="../js/general.js"></script>
-    <!-- <script src="../js/auth.js"></script> -->
+    <script src="../js/auth.js"></script>
     <script src="../js/citas.js"></script>
 </body>
 </html>

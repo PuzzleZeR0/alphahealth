@@ -2,7 +2,8 @@
 const { pool } = require('../../infrastructure/database.js');
 
 const findUserById = async (userId) => {
-    const [rows] = await pool.query('SELECT id, nombre, email FROM users WHERE id = ?', [userId]);
+    // AÑADIR 'rol' A ESTA CONSULTA
+    const [rows] = await pool.query('SELECT id, nombre, email, rol FROM users WHERE id = ?', [userId]);
     return rows[0] || null;
 };
 

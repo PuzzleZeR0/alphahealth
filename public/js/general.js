@@ -1,3 +1,34 @@
+/**
+ * Decodifica un JWT (token) para obtener su payload.
+ * @param {string} token El JWT
+ * @returns {object | null} El payload del token o null si es inválido.
+ */
+function parseJwt(token) {
+    if (!token) {
+        console.log("parseJwt: No se proporcionó token.");
+        return null;
+    }
+    try {
+        const base64Url = token.split('.')[1];
+        if (!base64Url) {
+            console.error("parseJwt: Token inválido (no tiene payload).");
+            return null;
+        }
+
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        
+        // Esta es la forma robusta de decodificar Base64 a UTF-8
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        console.error("Error al decodificar el token:", e);
+        return null;
+    }
+}
+
 // Espera a que la página cargue por completo
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -95,6 +126,46 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // --- NUEVA LÓGICA PARA GESTIONAR ROLES ---
+    function gestionarVisibilidadAdmin() {
+        console.log("Iniciando gestionarVisibilidadAdmin..."); // DEBUG
+        const token = localStorage.getItem('token');
+
+        const payload = parseJwt(token); 
+        console.log("Payload del token:", payload); // DEBUG
+
+        const esAdmin = payload && payload.rol === 'admin';
+        console.log("¿Es Admin?:", esAdmin); // DEBUG
+
+        // Seleccionamos los enlaces por su ID
+        const linkHistorial = document.getElementById('historial');
+        const linkPedidos = document.getElementById('pedidos'); // Este es 'Historial clinico'
+
+        if (esAdmin) {
+        // ¡ES ADMIN! Nos aseguramos de que los vea.
+        console.log("Usuario es admin. Mostrando enlaces."); // DEBUG
+        if (linkHistorial) {
+            linkHistorial.style.display = 'flex'; // Usamos 'flex' porque así está en tu CSS
+        }
+        if (linkPedidos) {
+            linkPedidos.style.display = 'flex';
+        }
+    } else {
+        // NO ES ADMIN (o no está logueado, o payload falló)
+        console.log("Usuario NO es admin. Ocultando enlaces."); // DEBUG
+        if (linkHistorial) {
+            linkHistorial.style.display = 'none';
+        }
+        if (linkPedidos) {
+            linkPedidos.style.display = 'none';
+        }
+    }
+        // Si ES admin, no hacemos nada (se mostrarán por defecto)
+    }
+    
+    // Llamamos a la nueva función al cargar la página
+    gestionarVisibilidadAdmin();
+    // --- FIN DE LA NUEVA LÓGICA ---
 
     // --- LÓGICA DE CERRAR SESIÓN ---
     

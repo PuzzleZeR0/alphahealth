@@ -107,11 +107,31 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE -- Si se borra el usuario, se borra su perfil
 );
 
+
+-- 5. Modificar la tabla 'users' para añadir el campo 'rol'
+USE alphahealth_users;
+ALTER TABLE users
+ADD COLUMN rol VARCHAR(50) NOT NULL DEFAULT 'user' AFTER password;
+
+/*
+  ====================================================================
+   ¡IMPORTANTE!
+   Ejecuta esto manualmente para convertir a un usuario existente en admin
+   (reemplaza 'admin@correo.com' con el email de tu usuario administrador)
+  ====================================================================
+*/
+UPDATE users
+SET rol = 'admin'
+WHERE email = 'admin@correo.com';
+
+SELECT 'Columna ROL añadida y admin de prueba actualizado.' AS 'Estado';
+
 -- (Opcional) Modificar la tabla 'users' para añadir un campo que indique si tiene perfil
 -- ALTER TABLE users ADD COLUMN has_profile BOOLEAN DEFAULT FALSE;
 -- Esto podría ser útil para saber si ya se creó un perfil para el usuario.
 -- (Opcional) Aquí puedes agregar las tablas de productos, inventario, etc.,
 -- cuando las vayas implementando en el servicio principal.
+
 
 
 SELECT 'Bases de datos alphahealth_users y taller4 creadas exitosamente.' AS 'Estado';

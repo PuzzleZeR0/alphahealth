@@ -15,7 +15,8 @@ const loginUserUseCase = async (email, contraseña) => {
         throw new Error('Credenciales inválidas.');
     }
 
-    const payload = { id: user.id, email: user.email };
+    // --- ¡AQUÍ ESTÁ LA CORRECCIÓN! ---
+    const payload = { id: user.id, email: user.email, rol: user.rol };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     // --- PUBLICAR MENSAJE EN RABBITMQ ---

@@ -576,7 +576,144 @@ textarea {
   resize: vertical; /* Permite al usuario cambiar la altura */
   line-height: 1.4;
   padding-top: 1em; /* Ajuste de padding para textarea */
+  
 }
+
+/* =====================================diseño genero================================== */
+   /* Contenedor principal */
+.gender-selector {
+  margin: 10px 0;
+  background: #e8e8e8;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem; /* 16px */
+  overflow: hidden;
+  border-radius: 15px; /* 6px */
+  padding: 1.5rem; /* 24px */
+  box-shadow: 6px 6px 12px #c5c5c5,
+              -6px -6px 12px #ffffff;
+}
+
+/* Contenedor de las opciones */
+.gender-options {
+  display: flex;
+  align-items: center;
+  gap: 4rem; /* 64px */
+  z-index: 10;
+}
+
+/* Contenedor de cada radio button (Hombre, Mujer) */
+.gender-option {
+  position: relative;
+  display: flex;
+  height: 30px;
+  width: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* El input de radio invisible que controla todo */
+.gender-radio-input {
+  position: absolute; /* Lo ponemos absoluto para que cubra toda el área */
+  top: 0;
+  left: 0;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  opacity: 0;
+  margin: 0;
+}
+
+/* El círculo visible (la base) */
+.gender-radio-circle {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 9999px; /* rounded-full */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3125);
+  transition-property: transform, box-shadow;
+  transition-duration: 300ms;
+}
+
+/* El fondo que se expande */
+.gender-radio-bg {
+  position: absolute;
+  z-index: -10;
+  height: 100%;
+  width: 100%;
+  transform: scale(0);
+  border-radius: 9999px; /* rounded-full */
+  transition-property: transform;
+  transition-duration: 500ms;
+}
+
+/* El ícono SVG */
+.gender-radio-icon {
+  position: absolute;
+}
+
+
+/* --- ESTILOS "MALE" (HOMBRE) --- */
+
+.gender-radio-circle.male {
+  background-color: rgb(219, 234, 254); /* bg-blue-100 */
+  padding: 1rem; /* p-4 */
+  --ring-color-male: rgb(96, 165, 250); /* ring-blue-400 */
+}
+
+.gender-radio-bg.male {
+  background-color: rgb(191, 219, 254); /* bg-blue-200 */
+}
+
+.gender-radio-icon.male {
+  stroke: rgb(96, 165, 250); /* stroke-blue-400 */
+  width: 50px;
+  height: 50px;
+}
+
+/* --- ESTILOS "FEMALE" (MUJER) --- */
+
+.gender-radio-circle.female {
+  background-color: rgb(252, 231, 243); /* bg-pink-100 */
+  padding: 0.5rem; /* p-2 */
+  --ring-color-female: rgb(244, 114, 182); /* ring-pink-400 */
+}
+
+.gender-radio-bg.female {
+  background-color: rgb(251, 207, 232); /* bg-pink-200 */
+}
+
+.gender-radio-icon.female {
+  fill: rgb(244, 114, 182); /* fill-pink-400 */
+  width: 35px;
+  height: 35px;
+}
+
+
+/* --- LÓGICA DE :CHECKED (El "peer-checked") --- */
+
+/* Cuando el input está "checked", afecta a sus hermanos */
+
+.gender-radio-input:checked + .gender-radio-circle {
+  transform: scale(1.1); /* peer-checked:scale-110 */
+}
+
+/* Aplicamos el "ring" (borde) al círculo */
+.gender-radio-input:checked + .gender-radio-circle.male {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3125), 0 0 0 2px var(--ring-color-male);
+}
+.gender-radio-input:checked + .gender-radio-circle.female {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3125), 0 0 0 2px var(--ring-color-female);
+}
+
+/* Expande el fondo (usa ~ por ser hermano general) */
+.gender-radio-input:checked ~ .gender-radio-bg {
+  transform: scale(5); /* peer-checked:scale-[500%] */
+}
+/* =========================================================================== */
 
 /* =============== diseño radio buttom======================== */
 

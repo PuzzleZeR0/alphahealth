@@ -32,7 +32,7 @@ h1{
     box-shadow: 0 0 30px var(--color-shadow);
     border-radius: 15px;
     padding: 30px 40px;
-    background-color: var(--bg-divs);
+    background: #e8e8e8;
     backdrop-filter: blur(10px);
     transition: all 0.4s ease-in-out;
 }
@@ -59,7 +59,7 @@ h1{
 
 .social-icons-container .icon:hover{
     border-color: var(--color-orange);
-    box-shadow: 0 0 20px var(--color-orange-opacity);
+    box-shadow: 0 0 20px var(--color-shadow);
 }
 
 /* color de iconos i */
@@ -67,7 +67,7 @@ h1{
     transition: all 0.4s ease-in-out;
 }
 .social-icons-container .icon:hover i {
-    color: var(--color-orange);
+    color: var(--color-blue);
 }
 
 /*----------------------------- para colorear links en letras---------------------------------- */
@@ -77,7 +77,7 @@ a{
 }
 
 a:hover{
-    color: var(--color-yellow);
+    color: var(--color-blue);
 }
 /* para ocultar divs */
 .hidden {

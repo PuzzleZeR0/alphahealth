@@ -51,15 +51,15 @@ h1{
     display: inline-block;
     font-size: 25px;
     margin: 0 10px;
-    box-shadow: 0 0 15px var(--color-shadow);
+      box-shadow: 6px 6px 12px #c5c5c5,
+              -6px -6px 12px #ffffff;
     border-radius: 15px;
     padding: 7px 10px;
     transition: all 0.4s ease-in-out;
 }
 
 .social-icons-container .icon:hover{
-    border-color: var(--color-orange);
-    box-shadow: 0 0 20px var(--color-shadow);
+    scale: 1.1;
 }
 
 /* color de iconos i */

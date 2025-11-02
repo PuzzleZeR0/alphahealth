@@ -29,7 +29,8 @@ h1{
 /* contenedor de divs */
 .container-divs{
     width: 380px;
-    box-shadow: 0 0 30px var(--color-shadow);
+    box-shadow: 20px 20px 60px #bebebe,
+               -20px -20px 60px #ffffff;
     border-radius: 15px;
     padding: 30px 40px;
     background: #e8e8e8;
@@ -38,7 +39,7 @@ h1{
 }
 
 .container-divs:hover{
-    box-shadow: 0 0 30px var(--color-orange);
+    
 }
 /* ----------------------------------para botones con iconos------------------------ */
 /* contenedor de iconos general */

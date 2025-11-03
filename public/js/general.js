@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
     * @param {string} type - El tipo de alerta ('success', 'info', 'warning', 'error'). Por defecto 'info'.
     * @param {number} duration - Duración en milisegundos antes de desaparecer. Por defecto 3000ms (3 segundos).
     */
-function showAlert(message, type = 'info', duration = 3000) {
+function showAlert(message, type = 'info', duration = 5000) {
     // Asegura que el contenedor exista, si no, lo crea
     let container = document.getElementById('alert-container-dynamic');
     if (!container) {
@@ -240,10 +240,10 @@ function showAlert(message, type = 'info', duration = 3000) {
 
     const icon = document.createElement('i');
     // Elige el icono según el tipo
-    let iconClass = 'bx bx-info-circle'; // Icono por defecto
-    if (type === 'success') iconClass = 'bx bx-check-circle';
-    if (type === 'warning') iconClass = 'bx bx-error-circle';
-    if (type === 'error') iconClass = 'bx bx-x-circle';
+    let iconClass = 'bx bx-info-circle bx-flashing'; // Icono por defecto
+    if (type === 'success') iconClass = 'bx bx-info-circle bx-flashing';
+    if (type === 'warning') iconClass = 'bx bx-info-circle bx-flashing';
+    if (type === 'error') iconClass = 'bx bx-info-circle bx-flashing';
     icon.className = `${iconClass} alert-icon`; // Clases del CSS
 
 

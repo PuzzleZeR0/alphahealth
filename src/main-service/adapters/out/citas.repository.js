@@ -24,7 +24,36 @@ const findByUserId = async (userId) => {
     return rows;
 };
 
+/**
+ * Busca TODAS las citas y las une con el nombre del paciente
+ * de la base de datos 'alphahealth_users'.
+ */
+const findAllWithPatientName = async () => {
+    // Usamos un JOIN explícito entre las dos bases de datos
+    // ASUMIMOS que el usuario de BD 'root' tiene permisos sobre 'taller4' y 'alphahealth_users'
+    const query = `
+        SELECT 
+            c.id, 
+            c.user_id, 
+            u.nombre AS nombre_paciente, 
+            DATE_FORMAT(c.fecha, "%Y-%m-%d") AS fecha, 
+            c.hora, 
+            c.tratamiento, 
+            c.estado 
+        FROM 
+            citas c
+        JOIN 
+            alphahealth_users.users u ON c.user_id = u.id
+        ORDER BY 
+            c.fecha, c.hora
+    `;
+    const [rows] = await pool.query(query);
+    return rows;
+};
+// --- FIN DE LA NUEVA FUNCIÓN ---
+
 module.exports = {
     create,
-    findByUserId
+    findByUserId,
+    findAllWithPatientName
 };

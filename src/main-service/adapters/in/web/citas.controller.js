@@ -1,9 +1,8 @@
-// puzzlezer0/alphahealth/alphahealth-9ff70f5394a43fcdb875334e0d00e4eb39f098f9/src/adapters/in/web/citas.controller.js
-const { createCitaUseCase, getCitasUseCase } = require('../../../application/use-cases/citas.use-case.js');
+//           Asegúrate de que esté aquí VVV
+const { createCitaUseCase, getCitasUseCase, getAllCitasUseCase } = require('../../../application/use-cases/citas.use-case.js');
 
 const createCita = async (req, res) => {
     try {
-        // Obtenemos el ID del usuario del token (gracias al auth.middleware)
         const userId = req.user.id;
         const { fecha, hora, tratamiento } = req.body;
 
@@ -24,7 +23,20 @@ const getCitas = async (req, res) => {
     }
 };
 
+// --- Y que la función se llame aquí ---
+const getAllCitas = async (req, res) => {
+    try {
+        // Esta es la línea que falla si la importación no funcionó
+        const citas = await getAllCitasUseCase();
+        res.status(200).json(citas);
+    } catch (error) {
+        // El error "is not defined" se captura aquí y se envía al navegador
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     createCita,
-    getCitas
+    getCitas,
+    getAllCitas // <-- (La exportación de esta función está bien)
 };

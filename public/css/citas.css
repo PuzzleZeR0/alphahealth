@@ -60,3 +60,32 @@
         background-color: var(--color-orange);
         box-shadow: inset 4px 5px 2px 0px var(--color-shadow);
     }
+
+    /* --- INICIO: Parche para buscador en historial.html --- */
+
+/* 1. Hace que el contenedor .buscador-style sea invisible */
+.buscador-style {
+    box-shadow: none;
+    background: transparent;
+    width: 55%; /* Mantenemos el ancho del contenedor */
+}
+
+/* 2. Anula los estilos de .transparente que rompen el diseño del input */
+.buscador-style .transparente {
+    border-radius: 15px !important; /* Forza el borde redondeado completo */
+    width: 100%; /* El input ocupa todo el contenedor */
+    height: 45px; /* Ajusta la altura */
+    margin: 0;
+    
+    /* Re-aplica los estilos de sombra y fondo de masterStyle.css */
+    box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+    background: #e8e8e8;
+}
+
+/* 3. Asegura que el contenedor-buscador alinee el input a la izquierda */
+.contenedor-buscador {
+    justify-content: flex-start; 
+    height: 45px;
+}
+
+/* --- FIN: Parche para buscador en historial.html --- */

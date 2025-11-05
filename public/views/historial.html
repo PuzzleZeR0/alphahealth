@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/masterStyle.css">
-    <link rel="stylesheet" href="../css/inventario.css">
-    <title>Inventario</title>
+    <link rel="stylesheet" href="../css/citas.css"> 
+    <title>Historial de Citas (Admin)</title>
 </head>
 <body>
     <div class="barraLateral">
@@ -20,8 +20,6 @@
             height="40"
             width="40"
             ></animated-icons>
-            <!-- <i class='bx bx-qr bx-tada' ></i> -->
-            <!-- <img src="../img/bee.png"  class="bee"> -->
             <span>Menú</span>
         </div>
 
@@ -58,12 +56,6 @@
                         <span>Historial clinico</span>
                     </a>
                 </li>
-                <!-- <li>
-                    <a class="btn-lateral" id="ajustes" href="users.html">
-                        <i class='bx bx-cog' ></i>
-                        <span></span>
-                    </a>
-                </li> -->
             </ul>
         </nav>
 
@@ -120,105 +112,24 @@
         <h1>Historial de citas</h1>
         <div class="contenedor-buscador">
             <div class="buscador-style">
-                <input class="transparente" type="search" placeholder="Buscar por nombre o código" id="buscador">
-                <button id="" class="btn-buscarIn">Buscar</button>
-            </div>
+                <input class="transparente" type="search" placeholder="Buscar por ID de cita o Paciente" id="buscador">
+                </div>
         </div>
-        <!-- nuevo producto -->
-        <div id="nuevo-producto" class="portada hidden">
-            <h3>Nuevo producto</h3>
-            <div class="mt-20 flex-beetwen">
-                <div class="item-fb mb-10">
-                    <div class="flex-column">
-                        <h5>Codigo</h5>
-                        <input type="text" id="codigoproducto">
-                    </div>
-                </div>
-                <div class="item-fb mb-10">
-                    <div class="flex-column">
-                        <h5>Nombre</h5>
-                        <input type="text" id="nombreproducto">
-                    </div>
-                </div>
-                <div class="item-fb mb-10">
-                    <div class="flex-column">
-                        <h5>Precio</h5>
-                        <input type="text" id="precioproducto">
-                    </div>
-                </div>
-                <div class="item-fb mb-10">
-                    <div class="flex-column">
-                        <h5>Stock</h5>
-                        <input type="text" id="stockproducto">
-                    </div>
-                </div>
-            </div>
-            <div class="flex-beetwen">
-                <div class="ml-20 flex-column">
-                    <button type="button" class="btn-secundary" id="guardarNuevoBtn">Guardar</button>
-                </div>
-                <div class="ml-20 flex-column">
-                    <button type="button" class="btn-danger" id="cerrar">Cancelar</button>
-                </div>
-            </div>
-        </div>
-        <!-- editar producto -->
-        <div id="editar-producto" class="portada hidden">
-            <h3>Editar producto</h3>
-            <div class="mt-20 flex-beetwen">
-                <div class="item-fb mb-10">
-                    <div class="flex-column">
-                        <h5>Codigo</h5>
-                        <input type="text" id="codigo-producto">
-                    </div>
-                </div>
-                <div class="item-fb mb-10">
-                    <div class="flex-column">
-                        <h5>Nombre</h5>
-                        <input type="text" id="nombre-producto">
-                    </div>
-                </div>
-                <div class="item-fb mb-10">
-                    <div class="flex-column">
-                        <h5>Precio</h5>
-                        <input type="text" id="precio-producto">
-                    </div>
-                </div>
-                <div class="item-fb mb-10">
-                    <div class="flex-column">
-                        <h5>Stock</h5>
-                        <input type="text" id="stock-producto">
-                    </div>
-                </div>
-            </div>
-            <div class="flex-beetwen">
-                <div class="ml-20 flex-column">
-                    <button type="button" class="btn-secundary" id="actualizarBtn">Actualizar</button>
-                </div>
-                <div class="ml-20 flex-column">
-                    <button type="button" class="btn-danger" id="cancelarEdicionBtn">Cancelar</button>
-                </div>
-            </div>
-        </div>
-
         
         <div class="portada">
             <table>
                 <thead>
                     <tr style="font-weight: 600;">
                         <td>ID Cita</td>
-                        <td>ID Paciente</td>
+                        <td>Paciente</td>
                         <td>Fecha</td>
                         <td>Horario</td>
+                        <td>Tratamiento</td>
                         <td>Estado</td>
-                        <td>Accionees</td>
                     </tr>
                 </thead>
-                <tbody id="tabla-inventario">
-
-                    <!-- Aquí se llenará la tabla con los productos -->
-
-                </tbody>
+                <tbody id="tabla-historial">
+                    </tbody>
             </table>
         </div>
     </main>
@@ -230,9 +141,6 @@
     </footer>
 
     <script src="../js/general.js" ></script>
-    <script src="../js/inventario.js"></script>
-    <!-- Quitar el auth si se quiere ver por individual -->
-    <!-- <script src="../js/auth.js"></script>  -->
-</body>
-</body>
+    <script src="../js/historial.js"></script>
+    </body>
 </html>

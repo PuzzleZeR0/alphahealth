@@ -1,17 +1,15 @@
-document.addEventListener('DOMContentLoaded', async () => { // <-- Hacemos la función async
+document.addEventListener('DOMContentLoaded', async () => {
     
-    // --- BLOQUE 1: TOKEN descomentar ---
-    /*
+    // --- BLOQUE 1: OBTENER TOKEN ---
     const token = localStorage.getItem('token');
     if (!token) {
         console.error('No hay token');
-        // auth.js se encargará de redirigir si es necesario
+        // auth.js (si está importado) se encargará de redirigir si es necesario
+        // Si no, la lógica de showAlert en general.js o auth.js lo hará.
         return;
     }
-    */
 
-    // --- BLOQUE 2: VERIFICACIÓN DE PERFIL descomentar ---
-    /*
+    // --- BLOQUE 2: VERIFICACIÓN DE PERFIL ---
     let perfilCompleto = false;
     try {
         const profileResponse = await fetch('http://localhost:3003/api/profile', {
@@ -22,6 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => { // <-- Hacemos la fu
         if (profileResponse.ok) {
             const profileData = await profileResponse.json();
             
+            // Verificamos campos clave del perfil clínico
             if (profileData.fecha_nacimiento && 
                 profileData.telefono && 
                 profileData.domicilio &&
@@ -34,20 +33,20 @@ document.addEventListener('DOMContentLoaded', async () => { // <-- Hacemos la fu
         }
     } catch (error) {
         console.error("Error al verificar perfil:", error);
-        showAlert('No se pudo verificar tu perfil. Intenta más tarde.', 'error');
+        if (typeof showAlert === 'function') {
+            showAlert('No se pudo verificar tu perfil. Intenta más tarde.', 'error');
+        }
         return; 
     }
-    */
 
-    // --- 3. OBTENER ELEMENTOS DEL DOM descomentar---
-
+    // --- 3. OBTENER ELEMENTOS DEL DOM ---
     const tablaCitas = document.querySelector("#tabla-citas");
     const formCita = document.querySelector("#form-cita");
     const formularioDiv = document.querySelector("#formulario-nueva-cita");
     const btnCrearCita = document.querySelector("#btn-crear-cita");
     const btnCancelarCita = document.querySelector("#btn-cancelar-cita");
     
-    // Elementos del nuevo modal
+    // Elementos del modal de perfil incompleto
     const perfilModal = document.getElementById('perfil-incompleto-modal');
     const btnIrAPerfil = document.getElementById('btn-ir-a-perfil');
     
@@ -58,8 +57,8 @@ document.addEventListener('DOMContentLoaded', async () => { // <-- Hacemos la fu
         });
     }
 
-    // --- BLOQUE 4: LÓGICA CONDICIONAL descomentar ---
-    /*
+    // --- BLOQUE 4: LÓGICA CONDICIONAL ---
+    
     if (perfilCompleto) {
         // --- A. PERFIL COMPLETO: Cargar todo normally ---
         
@@ -67,21 +66,109 @@ document.addEventListener('DOMContentLoaded', async () => { // <-- Hacemos la fu
 
         // --- 1. Cargar Citas al iniciar ---
         async function cargarCitas() {
-            // ... (todo el código de cargar citas) ...
+            try {
+                const response = await fetch('/api/citas', {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Error al cargar las citas');
+                }
+                const citas = await response.json();
+                renderCitas(citas);
+            } catch (error) {
+                console.error(error.message);
+                if (typeof showAlert === 'function') {
+                    showAlert(error.message, 'error');
+                }
+            }
         }
 
         // --- 2. Renderizar Citas en la tabla ---
         function renderCitas(citas) {
-            // ... (todo el código de renderizar citas) ...
+            if (!tablaCitas) return;
+            tablaCitas.innerHTML = ''; // Limpiar tabla
+            
+            if (citas.length === 0) {
+                tablaCitas.innerHTML = '<tr><td colspan="5">No tienes citas agendadas.</td></tr>';
+                return;
+            }
+
+            citas.forEach(cita => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${cita.id}</td>
+                    <td>${cita.fecha}</td>
+                    <td>${cita.hora}</td>
+                    <td>${cita.tratamiento}</td>
+                    <td>${cita.estado}</td>
+                `;
+                tablaCitas.appendChild(tr);
+            });
         }
 
         // --- 3. Manejar envío del formulario ---
-        formCita.addEventListener('submit', async (e) => {
-            // ... (todo el código de enviar formulario) ...
-        });
+        if (formCita) {
+            formCita.addEventListener('submit', async (e) => {
+                console.log("¡Botón 'Guardar Cita' clickeado! Iniciando envío..."); // DEBUG
+                
+                e.preventDefault();
+                
+                const fecha = document.getElementById('cita-fecha').value;
+                const hora = document.getElementById('cita-hora').value;
+                const tratamiento = document.getElementById('cita-tratamiento').value;
+
+                console.log("Datos a enviar:", { fecha, hora, tratamiento }); // DEBUG
+
+                try {
+                    const response = await fetch('/api/citas', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ fecha, hora, tratamiento })
+                    });
+
+                    const result = await response.json();
+                    console.log("Respuesta del servidor:", result); // DEBUG
+
+                    if (!response.ok) {
+                        throw new Error(result.error || 'Error al crear la cita');
+                    }
+                    
+                    if (typeof showAlert === 'function') {
+                        showAlert('Cita creada exitosamente', 'success');
+                    }
+                    
+                    formCita.reset();
+                    formularioDiv.classList.add('hidden');
+                    cargarCitas(); // Recargar la lista de citas
+
+                } catch (error) {
+                    console.error("--- ERROR AL CREAR CITA ---", error.message); // DEBUG
+                    if (typeof showAlert === 'function') {
+                        showAlert(error.message, 'error');
+                    }
+                }
+            });
+        }
 
         // --- 4. Mostrar/Ocultar formulario ---
-        // ESTOS SON LOS LISTENERS QUE MOVIMOS AFUERA
+        if (btnCrearCita) {
+            btnCrearCita.style.display = 'inline-block'; // Asegurarse que el botón sea visible
+            btnCrearCita.addEventListener('click', () => {
+                if (formularioDiv) formularioDiv.classList.remove('hidden');
+            });
+        }
+
+        if (btnCancelarCita) {
+            btnCancelarCita.addEventListener('click', () => {
+                if (formularioDiv) formularioDiv.classList.add('hidden');
+                if (formCita) formCita.reset();
+            });
+        }
         
         // --- Carga inicial ---
         cargarCitas();
@@ -91,23 +178,23 @@ document.addEventListener('DOMContentLoaded', async () => { // <-- Hacemos la fu
         
         console.warn("Perfil incompleto. Bloqueando creación de citas.");
 
-        // ... (todo el código de perfil incompleto) ...
-    }
-    */
+        // Ocultar el botón de crear cita
+        if (btnCrearCita) {
+            btnCrearCita.style.display = 'none';
+        }
+        // Ocultar el formulario si estuviera abierto
+        if (formularioDiv) {
+            formularioDiv.classList.add('hidden');
+        }
+        // Mostrar un mensaje en la tabla
+        if (tablaCitas) {
+            tablaCitas.innerHTML = '<tr><td colspan="5">Debes completar tu perfil clínico para gestionar tus citas.</td></tr>';
+        }
 
-    // --- 5. LISTENERS PARA LIVE PREVIEW  ---
-    if (btnCrearCita) {
-        btnCrearCita.addEventListener('click', () => {
-            if (formularioDiv) formularioDiv.classList.remove('hidden');
-        });
+        // Mostrar el modal de advertencia
+        if (perfilModal) {
+            perfilModal.classList.add('visible');
+        }
     }
-
-    if (btnCancelarCita) {
-        btnCancelarCita.addEventListener('click', () => {
-            if (formularioDiv) formularioDiv.classList.add('hidden');
-            if (formCita) formCita.reset();
-        });
-    }
-
 
 }); // <-- FIN DEL DOMContentLoaded

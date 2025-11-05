@@ -1,4 +1,4 @@
-// puzzlezer0/alphahealth/alphahealth-9ff70f5394a43fcdb875334e0d00e4eb39f098f9/src/adapters/out/user.repository.js
+// src/user-service/adapters/out/user.repository.js
 const { pool } = require('../../infrastructure/database.js');
 
 const findUserById = async (userId) => {
@@ -9,6 +9,18 @@ const findUserById = async (userId) => {
 
 const updateUserName = async (userId, nombre) => {
     const [result] = await pool.query('UPDATE users SET nombre = ? WHERE id = ?', [nombre, userId]);
+    return result;
+};
+
+// --- NUEVA FUNCIÓN PARA ACTUALIZAR EMAIL ---
+const updateUserEmail = async (userId, newEmail) => {
+    const [result] = await pool.query('UPDATE users SET email = ? WHERE id = ?', [newEmail, userId]);
+    return result;
+};
+
+// --- NUEVA FUNCIÓN PARA ACTUALIZAR CONTRASEÑA ---
+const updateUserPassword = async (userId, newHashedPassword) => {
+    const [result] = await pool.query('UPDATE users SET password = ? WHERE id = ?', [newHashedPassword, userId]);
     return result;
 };
 
@@ -25,26 +37,14 @@ const createUser = async (nombre, email, password) => {
     return { id: result.insertId, nombre, email };
 };
 
-// --- NUEVAS FUNCIONES PARA PERFIL ---
+// --- FUNCIONES DE PERFIL (SIN CAMBIOS) ---
 
-/**
- * Busca el perfil de un usuario por su user_id.
- * Devuelve el perfil o null si no existe.
- */
 const findProfileByUserId = async (userId) => {
     const [rows] = await pool.query('SELECT * FROM user_profiles WHERE user_id = ?', [userId]);
     return rows[0] || null; // Devuelve el primer resultado o null
 };
 
-/**
- * Crea o actualiza el perfil de un usuario.
- * Si el perfil existe, lo actualiza. Si no, lo crea.
- * @param {number} userId - El ID del usuario.
- * @param {object} profileData - Un objeto con los datos del perfil a guardar.
- */
 const upsertProfile = async (userId, profileData) => {
-    // Extraemos los campos conocidos del profileData (¡asegúrate que coincidan con tu HTML!)
-    // Usamos '?? null' para asegurarnos de que si un campo no viene, se inserte NULL en la BD
     const {
         fecha_nacimiento = null,
         edad = null,
@@ -56,14 +56,12 @@ const upsertProfile = async (userId, profileData) => {
         escolaridad = null,
         contacto_emergencia_nombre = null,
         contacto_emergencia_numero = null,
-        // Antecedentes Familiares (convierte a 0 o 1 si es necesario, o déjalos como vienen si ya son 0/1)
         diabetes_fam = null,
         hipertension_fam = null,
         cancer_fam_detalle = null,
         cardiacas_fam = null,
         neurologicas_fam_detalle = null,
         otras_hereditarias_fam = null,
-        // Antecedentes Personales
         diabetes_pers = null,
         hipertension_pers = null,
         cardiacas_pers = null,
@@ -72,10 +70,8 @@ const upsertProfile = async (userId, profileData) => {
         asma_pers = null,
         renales_pers = null,
         gastritis_pers = null
-        // Añade aquí más campos si los tienes en tu formulario y tabla
     } = profileData;
 
-    // Sentencia SQL para INSERT ... ON DUPLICATE KEY UPDATE (UPSERT)
     const sql = `
         INSERT INTO user_profiles (
             user_id, fecha_nacimiento, edad, sexo, domicilio, telefono, ocupacion,
@@ -83,7 +79,6 @@ const upsertProfile = async (userId, profileData) => {
             diabetes_fam, hipertension_fam, cancer_fam_detalle, cardiacas_fam,
             neurologicas_fam_detalle, otras_hereditarias_fam, diabetes_pers, hipertension_pers,
             cardiacas_pers, fiebre_reumatica_pers, tiroides_pers, asma_pers, renales_pers, gastritis_pers
-            -- Añade aquí los nombres de las columnas nuevas
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
             fecha_nacimiento = VALUES(fecha_nacimiento), edad = VALUES(edad), sexo = VALUES(sexo),
@@ -99,17 +94,14 @@ const upsertProfile = async (userId, profileData) => {
             cardiacas_pers = VALUES(cardiacas_pers), fiebre_reumatica_pers = VALUES(fiebre_reumatica_pers),
             tiroides_pers = VALUES(tiroides_pers), asma_pers = VALUES(asma_pers),
             renales_pers = VALUES(renales_pers), gastritis_pers = VALUES(gastritis_pers)
-            -- Añade aquí las actualizaciones para las columnas nuevas
     `;
 
-    // Array de valores en el orden correcto
     const values = [
         userId, fecha_nacimiento, edad, sexo, domicilio, telefono, ocupacion, estado_civil,
         escolaridad, contacto_emergencia_nombre, contacto_emergencia_numero,
         diabetes_fam, hipertension_fam, cancer_fam_detalle, cardiacas_fam, neurologicas_fam_detalle,
         otras_hereditarias_fam, diabetes_pers, hipertension_pers, cardiacas_pers,
         fiebre_reumatica_pers, tiroides_pers, asma_pers, renales_pers, gastritis_pers
-        // Añade aquí los valores para las columnas nuevas
     ];
 
     const [result] = await pool.query(sql, values);
@@ -122,5 +114,7 @@ module.exports = {
     findProfileByUserId, 
     upsertProfile,
     findUserById,      
-    updateUserName      
+    updateUserName,
+    updateUserEmail,    // <-- Exportar nueva función
+    updateUserPassword  // <-- Exportar nueva función
 };

@@ -1,20 +1,27 @@
-// puzzlezer0/alphahealth/alphahealth-9ff70f5394a43fcdb875334e0d00e4eb39f098f9/src/adapters/in/web/auth.routes.js
+// src/user-service/adapters/in/web/auth.routes.js
 const express = require('express');
-// --- IMPORTAR NUEVOS CONTROLADORES Y MIDDLEWARE ---
-const { register, login, getProfile, updateProfile } = require('./auth.controller.js');
-const authMiddleware = require('../../../infrastructure/middleware/auth.middleware.js'); // <-- Línea corregida
+const { 
+    register, 
+    login, 
+    getProfile, 
+    updateProfile,
+    updateEmail,    // <-- Importar nuevo
+    updatePassword  // <-- Importar nuevo
+} = require('./auth.controller.js');
+const authMiddleware = require('../../../infrastructure/middleware/auth.middleware.js');
 const router = express.Router();
 
-// --- Rutas existentes ---
+// --- Rutas de Autenticación (Públicas) ---
 router.post('/registrar', register);
 router.post('/login', login);
 
-// --- NUEVAS RUTAS PARA PERFIL (Protegidas por authMiddleware) ---
-router.get('/profile', authMiddleware, getProfile);       // Ruta: GET /api/profile
-router.put('/profile', authMiddleware, updateProfile);    // Ruta: PUT /api/profile
+// --- Rutas de Perfil (Protegidas) ---
+router.get('/profile', authMiddleware, getProfile);
+router.put('/profile', authMiddleware, updateProfile);
 
-// Podrías usar POST en lugar de PUT si prefieres, ambos funcionan para crear/actualizar
-// router.post('/profile', authMiddleware, updateProfile); // Ruta: POST /api/profile
+// --- NUEVAS RUTAS DE CUENTA (Protegidas) ---
+router.put('/account/email', authMiddleware, updateEmail);
+router.put('/account/password', authMiddleware, updatePassword);
 
 
 module.exports = router;

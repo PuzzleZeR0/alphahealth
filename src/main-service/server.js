@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../public', 'views', 'inicio.html'));
 });
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public', 'views', 'test', 'login.html'));
+    res.sendFile(path.join(__dirname, '../../public', 'views', 'login.html'));
 });
 
 // 2. Vistas de Admin (Protegidas)

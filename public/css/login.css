@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
 
 body {
-    background-image: url('/img/Background3.jpg');
+    background-color: rgb(255, 255, 255);
     background-size: cover;
     background-position: center;
     display: flex;

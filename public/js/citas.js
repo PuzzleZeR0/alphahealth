@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tablaCitas = document.querySelector("#tabla-citas");
     const formCita = document.querySelector("#form-cita");
     const formularioDiv = document.querySelector("#formulario-nueva-cita");
-    const btnCrearCita = document.querySelector("#btn-crear-cita");
+    // const btnCrearCita = document.querySelector("#btn-crear-cita");
     const btnCancelarCita = document.querySelector("#btn-cancelar-cita");
     
     // Elementos del modal de perfil incompleto
@@ -156,12 +156,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // --- 4. Mostrar/Ocultar formulario ---
-        if (btnCrearCita) {
-            btnCrearCita.style.display = 'inline-block'; // Asegurarse que el botón sea visible
-            btnCrearCita.addEventListener('click', () => {
-                if (formularioDiv) formularioDiv.classList.remove('hidden');
-            });
-        }
+        // if (btnCrearCita) {
+        //     btnCrearCita.style.display = 'inline-block'; // Asegurarse que el botón sea visible
+        //     btnCrearCita.addEventListener('click', () => {
+        //         if (formularioDiv) formularioDiv.classList.remove('hidden');
+        //     });
+        // }
 
         if (btnCancelarCita) {
             btnCancelarCita.addEventListener('click', () => {
@@ -179,9 +179,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.warn("Perfil incompleto. Bloqueando creación de citas.");
 
         // Ocultar el botón de crear cita
-        if (btnCrearCita) {
-            btnCrearCita.style.display = 'none';
-        }
+        // if (btnCrearCita) {
+        //     btnCrearCita.style.display = 'none';
+        // }
         // Ocultar el formulario si estuviera abierto
         if (formularioDiv) {
             formularioDiv.classList.add('hidden');

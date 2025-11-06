@@ -119,54 +119,61 @@
     <main>
         <h1>Mis Citas</h1>
         <div class="contenedor-buscador">
-            <button id="btn-crear-cita" class="btn-secundary"><i class='bx bx-plus'></i> Crear cita</button>
+            <button id="btn-crear-cita" class="btn-secundary js-open-modal" data-target="#formulario-nueva-cita"><i class='bx bx-plus'></i> Crear cita</button>
         </div>
 
-        <div id="formulario-nueva-cita" class="portada hidden">
-            <h3>Nueva Cita</h3>
-            <form id="form-cita">
-                <div class="mt-20 flex-beetwen">
-                    <div class="item-fb mb-10">
-                        <div class="flex-column">
-                            <h5>Fecha</h5>
-                            <input type="date" id="cita-fecha" required>
+        <div id="formulario-nueva-cita" class="modal-overlay">
+            <div class="modal-content">
+
+                <span class="modal-close js-close-modal"><i id="btn-cerrar" class="bx bx-x bx-tada"></i></span>
+                
+                <div class="portada" id="card-2" style="width: 90%;">
+                    <h3>Nueva cita</h3>
+                    <form id="form-cita">
+                        <div class="mt-20 flex-beetwen">
+                            <div class="item-fb mb-10">
+                                <div class="flex-column">
+                                    <h5>Fecha</h5>
+                                    <input type="date" id="cita-fecha" required>
+                                </div>
+                            </div>
+                            <div class="item-fb mb-10">
+                                <div class="flex-column">
+                                    <h5>Hora</h5>
+                                    <input type="time" id="cita-hora" required>
+                                </div>
+                            </div>
+                            <div class="item-fb mb-10">
+                                <div class="flex-column">
+                                    <h5>Tratamiento</h5>
+                                    <select class="input" id="cita-tratamiento" required>
+                                        <option value="">Seleccione un tratamiento</option>
+                                        <option value="Blanqueamiento">Blanqueamiento - $300.000</option>
+                                        <option value="Carillas">Carillas - $500.000</option>
+                                        <option value="Coronas">Coronas - $400.000</option>
+                                        <option value="Endodoncia">Endodoncia - $250.000</option>
+                                        <option value="Implantes">Implantes - $800.000</option>
+                                        <option value="Ortodoncia">Ortodoncia - $1.200.000</option>
+                                        <option value="Limpieza">Limpieza - $150.000</option>
+                                        <option value="Extraccion">Extracción - $200.000</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="item-fb mb-10">
-                        <div class="flex-column">
-                            <h5>Hora</h5>
-                            <input type="time" id="cita-hora" required>
+                        <div class="flex-beetwen">
+                            <div class="ml-20 flex-column">
+                                <button type="submit" class="btn-secundary">Guardar Cita</button>
+                            </div>
+                            <div class="ml-20 flex-column">
+                                <button type="button" class="btn-danger js-close-modal" id="btn-cancelar-cita">Cancelar</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="item-fb mb-10">
-                        <div class="flex-column">
-                            <h5>Tratamiento</h5>
-                            <select class="input" id="cita-tratamiento" required>
-                                <option value="">Seleccione un tratamiento</option>
-                                <option value="Blanqueamiento">Blanqueamiento - $300.000</option>
-                                <option value="Carillas">Carillas - $500.000</option>
-                                <option value="Coronas">Coronas - $400.000</option>
-                                <option value="Endodoncia">Endodoncia - $250.000</option>
-                                <option value="Implantes">Implantes - $800.000</option>
-                                <option value="Ortodoncia">Ortodoncia - $1.200.000</option>
-                                <option value="Limpieza">Limpieza - $150.000</option>
-                                <option value="Extraccion">Extracción - $200.000</option>
-                            </select>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-                <div class="flex-beetwen">
-                    <div class="ml-20 flex-column">
-                        <button type="submit" class="btn-secundary">Guardar Cita</button>
-                    </div>
-                    <div class="ml-20 flex-column">
-                        <button type="button" class="btn-danger" id="btn-cancelar-cita">Cancelar</button>
-                    </div>
-                </div>
-            </form>
+            </div> 
         </div>
-        
-        <div class="portada">
+
+        <div class="portada mt-10">
             <table>
                 <thead>
                     <tr>

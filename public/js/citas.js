@@ -30,7 +30,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tablaCitas = document.querySelector("#tabla-citas");
     const formCita = document.querySelector("#form-cita");
     const formularioDiv = document.querySelector("#formulario-nueva-cita");
+    
+    // --- Selectores de botones ---
+    const btnCrearCita = document.getElementById('btn-crear-cita');
     const btnCancelarCita = document.querySelector("#btn-cancelar-cita");
+    const btnCerrarX = formularioDiv.querySelector('.js-close-modal'); // <-- El botón 'X'
+    
     const perfilModal = document.getElementById('perfil-incompleto-modal');
     const btnIrAPerfil = document.getElementById('btn-ir-a-perfil');
     
@@ -71,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             tablaCitas.innerHTML = '';
             
             if (citas.length === 0) {
-                tablaCitas.innerHTML = '<tr><td colspan="6">No tienes citas agendadas.</td></tr>'; // Colspan es 6 ahora
+                tablaCitas.innerHTML = '<tr><td colspan="6">No tienes citas agendadas.</td></tr>';
                 return;
             }
 
@@ -112,7 +117,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const fecha = document.getElementById('cita-fecha').value;
                 const hora = document.getElementById('cita-hora').value;
                 const tratamiento = document.getElementById('cita-tratamiento').value;
-
                 const editingId = formCita.dataset.editingId; 
                 
                 let url = '/api/citas';
@@ -128,27 +132,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 try {
                     const response = await fetch(url, {
                         method: method,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                         body: JSON.stringify(body)
                     });
-
                     const result = await response.json();
-                    if (!response.ok) {
-                        throw new Error(result.error || 'Error al guardar la cita');
-                    }
+                    if (!response.ok) throw new Error(result.error || 'Error al guardar la cita');
                     
                     showAlert(editingId ? 'Cita actualizada exitosamente' : 'Cita creada exitosamente', 'success');
-                    
                     resetFormulario();
-                    
-                    // --- **CORRECCIÓN 1** ---
-                    formularioDiv.classList.remove('visible'); // Usar .remove('visible')
-                    
-                    cargarCitas(); // Recargar la lista
-
+                    formularioDiv.classList.remove('visible');
+                    cargarCitas();
                 } catch (error) {
                     console.error("--- ERROR AL GUARDAR CITA ---", error.message);
                     if (typeof showAlert === 'function') showAlert(error.message, 'error');
@@ -156,16 +149,43 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
-        // --- 4.4. Botón Cancelar del Formulario ---
+        // --- 4.4. Listeners para ABRIR y CERRAR el modal ---
+
+        // Botón "Crear Cita"
+        if (btnCrearCita) {
+            btnCrearCita.addEventListener('click', () => {
+                resetFormulario(); // Limpia el formulario
+                formularioDiv.classList.add('visible'); // Muestra el modal
+            });
+        }
+
+        // Botón "Cancelar" (rojo, dentro del modal)
         if (btnCancelarCita) {
             btnCancelarCita.addEventListener('click', () => {
                 resetFormulario();
-                // --- **CORRECCIÓN 2** ---
-                if (formularioDiv) formularioDiv.classList.remove('visible'); // Usar .remove('visible')
+                formularioDiv.classList.remove('visible');
             });
         }
         
-        // --- Función para resetear el formulario ---
+        // Botón "X" (en la esquina del modal)
+        if (btnCerrarX) {
+            btnCerrarX.addEventListener('click', () => {
+                resetFormulario();
+                formularioDiv.classList.remove('visible');
+            });
+        }
+    
+        // Clic en el fondo (overlay)
+        if (formularioDiv) {
+            formularioDiv.addEventListener('click', (event) => {
+                if (event.target === formularioDiv) { // Si se hizo clic en el fondo
+                    resetFormulario();
+                    formularioDiv.classList.remove('visible');
+                }
+            });
+        }
+        
+        // --- 4.5. Función para resetear el formulario ---
         function resetFormulario() {
             if (formCita) {
                 formCita.reset();
@@ -175,7 +195,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
         
-        // --- Listeners para botones de la tabla ---
+        // --- 4.6. Listeners para botones de la tabla (Reprogramar/Cancelar) ---
         tablaCitas.addEventListener('click', async (e) => {
             const target = e.target.closest('button');
             if (!target) return;
@@ -183,12 +203,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             const citaId = target.dataset.id;
             
             if (target.classList.contains('btn-cancelar')) {
-                // --- Lógica de Cancelar MODIFICADA ---
                 const confirmed = await showConfirm(
                     `¿Estás seguro de que deseas cancelar la cita ID ${citaId}?`,
                     "Cancelar Cita"
                 );
-                
                 if (confirmed) {
                     await handleCancelarCita(citaId);
                 }
@@ -199,26 +217,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
 
-        // --- Funciones Handler para botones ---
+        // --- 4.7. Funciones Handler para botones ---
         async function handleCancelarCita(citaId) {
             try {
                 const response = await fetch(`/api/citas/${citaId}`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ estado: 'Cancelada' })
                 });
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || 'Error al cancelar la cita');
-                }
+                if (!response.ok) throw new Error((await response.json()).error);
                 
                 showAlert('Cita cancelada exitosamente.', 'success');
                 cargarCitas();
-                
             } catch (error) {
                 console.error('Error en handleCancelarCita:', error);
                 showAlert(error.message, 'error');
@@ -240,11 +250,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             formCita.querySelector('button[type="submit"]').textContent = 'Actualizar Cita';
             formularioDiv.querySelector('h3').textContent = `Reprogramar Cita ID: ${citaId}`;
 
-            // --- **CORRECCIÓN 3** ---
-            formularioDiv.classList.add('visible'); // Usar .add('visible')
+            formularioDiv.classList.add('visible');
         }
         
-        // --- Carga inicial ---
+        // --- 4.8. Carga inicial ---
         cargarCitas();
 
     } else {
@@ -256,6 +265,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (perfilModal) {
             perfilModal.classList.add('visible');
         }
+        // Ocultar el botón de crear si el perfil está incompleto
+        if (btnCrearCita) {
+            btnCrearCita.style.display = 'none';
+        }
     }
-
-}); // <-- FIN DEL DOMContentLoaded
+});

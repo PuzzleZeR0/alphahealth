@@ -220,9 +220,9 @@
   box-shadow: none; /* Shadow disappears when clicked */
 }
 
-.btn-small-content {
+/* .btn-small-content {
   display: flex;
-  padding-bottom: 16px; /* Smaller padding */
+  padding-bottom: 16px;
   width: 100%;
   height: max-content;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -231,11 +231,11 @@
     inset 0px -4px 0px #dddddd,
     0px -4px 0px #f4f5f6;
   border-radius: 20px;
-  transition: 0.3s ease-in-out; /* Smooth animation */
+  transition: 0.3s ease-in-out;
   z-index: 1;
   align-items: center;
   justify-content: center;
-}
+} */
 
 /* Icon hover effect: Floating effect */
 .btn-small-icon {
@@ -334,6 +334,34 @@
   justify-content: center;
 }
 
+.social-icons-container{
+    text-align: center;
+    margin-bottom: 20px;
+}
+/* contenedor de iconos por separado */
+.social-icons-container .icon{
+    display: inline-block;
+    font-size: 25px;
+    margin: 0 10px;
+      box-shadow: 6px 6px 12px #c5c5c5,
+              -6px -6px 12px #ffffff;
+    border-radius: 15px;
+    padding: 7px 10px;
+    transition: all 0.4s ease-in-out;
+}
+
+.social-icons-container .icon:hover{
+    scale: 1.1;
+}
+
+/* color de iconos i */
+.social-icons-container .icon i{
+    transition: all 0.4s ease-in-out;
+}
+.social-icons-container .icon:hover i {
+    color: var(--color-blue);
+}
+
 .btn a{
     display: flex;
     align-items: center;
@@ -343,6 +371,7 @@
 .btn i{
     min-width:50px;
     font-size: 25px;
+    text-align: center;
 }
 
     .btn:hover{
@@ -517,7 +546,7 @@ input[type="url"],
 textarea {
   
   /* --- Tus Estilos de Layout (fusionados) --- */
-  width: 75%;
+  width: 93%;
   height: 40px;
   margin: 10px 0;
   border-radius: 15px; /* Tu borde-radius */
@@ -948,6 +977,11 @@ table {
 td{
     height: 70px;
     border-bottom: var(--color-shadow) 2px dashed;
+    transition: all 0.4s ease-in-out;
+}
+th{
+    height: 70px;
+    border-bottom: var(--color-shadow) 2px dashed;
 }
 
 /*-----------------------------------------------------------------------------------Funcion para rotar abeja de barra lateral------------------ */
@@ -959,6 +993,16 @@ body{
 h1{
     margin-top: 20px;
     margin-bottom: 40px;
+}
+tr{
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+     
+}
+
+tr:hover td{
+    color: var(--color-blue);
+    transition: all 0.4s ease-in-out;
 }
 
 /*----------------------------------------------------------------Barra lateral------------------ */
@@ -1258,6 +1302,7 @@ Diseño de banners de avisos
   overflow-y: auto;
   width: 90%;
   max-width: 60%;
+  justify-items: center;
   transition: transform 0.3s ease-in-out;
 }
     .modal-content {

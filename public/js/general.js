@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+    
 
     // Evento click manual (solo si 'cloud' existe)
     if (cloud) {
@@ -125,6 +126,41 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    const tablaHistorial = document.getElementById('tabla-historial-clinico');
+    const historialModal = document.getElementById('historial-clinico-modal');
+
+    // Comprueba que ambos elementos existan en esta página
+    if (tablaHistorial && historialModal) {
+        
+        const modalContent = historialModal.querySelector('#card-2');
+        
+        tablaHistorial.addEventListener('click', (event) => {
+            const clickedRow = event.target.closest('tr');
+            
+            if (clickedRow) {
+                // Obtenemos datos de la fila
+                const id = clickedRow.cells[0].textContent;
+                const paciente = clickedRow.cells[1].textContent;
+                const contacto = clickedRow.cells[2].textContent;
+                
+                // Poblamos el modal
+                if(modalContent) {
+                    modalContent.innerHTML = `
+                        <h2>Historial de: ${paciente}</h2>
+                        <hr>
+                        <p><strong>ID Paciente:</strong> ${id}</p>
+                        <p><strong>Contacto:</strong> ${contacto}</p>
+                        <p>...</p>
+                        <p><i>(Aquí se cargaría el resto de la info del historial...)</i></p>
+                    `;
+                }
+                
+                // Mostramos el modal
+                historialModal.classList.add('visible');
+            }
+        });
+    }
 
     // --- NUEVA LÓGICA PARA GESTIONAR ROLES ---
     function gestionarVisibilidadAdmin() {

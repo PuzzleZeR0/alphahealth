@@ -110,26 +110,31 @@
     
     <main>
         <h1>Historial de citas</h1>
-        <div class="contenedor-buscador">
-            <div class="buscador-style">
-                <input class="transparente" type="search" placeholder="Buscar por ID de cita o Paciente" id="buscador">
-                </div>
-        </div>
         
         <div class="portada">
+            <!-- encabezado de busqueda -->
+            <div class="flex-beetwen">
+                <div class="social-icons-container">
+                    <label for="buscador" class="icon">
+                        <i class='bx bx-search-alt bx-tada'></i>
+                    </label>
+                </div>
+                <input type="search" placeholder="Buscar por ID de cita o Paciente" id="buscador" style="margin-top: 0px;">
+            </div>
             <table>
                 <thead>
-                    <tr style="font-weight: 600;">
-                        <td>ID Cita</td>
-                        <td>Paciente</td>
-                        <td>Fecha</td>
-                        <td>Horario</td>
-                        <td>Tratamiento</td>
-                        <td>Estado</td>
+                    <tr>
+                        <th>ID Cita</th>
+                        <th>Paciente</th>
+                        <th>Fecha</th>
+                        <th>Horario</th>
+                        <th>Tratamiento</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-historial">
-                    </tbody>
+                    <!-- Las filas de la tabla se generarán dinámicamente con JavaScript -->
+                </tbody>
             </table>
         </div>
     </main>

@@ -1,4 +1,4 @@
-#citas{
+#cotizar{
     display: flex;
     margin-bottom: 30px;
     padding:4px;
@@ -19,6 +19,6 @@
   color: var(--color-blue);
 }
 
-#citas i,#citas span{
+#cotizar i,#cotizar span{
     color: var(--color-blue);
 }

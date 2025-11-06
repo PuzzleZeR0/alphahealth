@@ -1,5 +1,5 @@
 //           Asegúrate de que esté aquí VVV
-const { createCitaUseCase, getCitasUseCase, getAllCitasUseCase } = require('../../../application/use-cases/citas.use-case.js');
+const { createCitaUseCase, getCitasUseCase, getAllCitasUseCase, updateCitaUseCase } = require('../../../application/use-cases/citas.use-case.js');
 
 const createCita = async (req, res) => {
     try {
@@ -35,8 +35,27 @@ const getAllCitas = async (req, res) => {
     }
 };
 
+const updateCita = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const citaId = req.params.id;
+        const data = req.body; // Esto será { fecha, hora, ... } o { estado: 'Cancelada' }
+
+        // Pasamos userId para verificar que el usuario es dueño de la cita
+        const updatedCita = await updateCitaUseCase(citaId, userId, data); 
+        res.status(200).json({ message: 'Cita actualizada exitosamente', cita: updatedCita });
+    } catch (error) {
+        // Si el use case lanza error por "no autorizado"
+        if (error.message === 'No autorizado') {
+            return res.status(403).json({ error: error.message });
+        }
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     createCita,
     getCitas,
-    getAllCitas // <-- (La exportación de esta función está bien)
+    getAllCitas,
+    updateCita
 };

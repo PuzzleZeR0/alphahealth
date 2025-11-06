@@ -182,7 +182,7 @@
                         <th>Hora</th>
                         <th>Tratamiento</th>
                         <th>Estado</th>
-                    </tr>
+                        <th>Acciones</th> </tr>
                 </thead>
                 <tbody id="tabla-citas">
                     </tbody>
@@ -212,6 +212,28 @@
                 </div>
             </div>
         </div>
+
+        <div id="confirm-modal" class="modal-overlay" style="z-index: 1001;">
+            <div class="modal-content" style="max-width: 400px; text-align: center;">
+                
+                <h3 id="confirm-modal-title">Confirmar Acción</h3>
+                
+                <p class="mt-10 mb-20" id="confirm-modal-message">
+                    ¿Estás seguro de que deseas continuar?
+                </p>
+                
+                <div class="flex-around">
+                    <button type="button" class="btn-secundary" id="btn-confirm-ok">
+                        Aceptar
+                    </button>
+                    <button type="button" class="btn-danger" id="btn-confirm-cancel">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+        </main> ```
+
 
     </main>
 

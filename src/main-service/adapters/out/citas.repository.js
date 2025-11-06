@@ -52,8 +52,51 @@ const findAllWithPatientName = async () => {
 };
 // --- FIN DE LA NUEVA FUNCIÓN ---
 
+// --- AÑADE ESTAS DOS NUEVAS FUNCIONES ---
+
+/**
+ * Busca una cita específica SOLO si pertenece al usuario.
+ */
+const findCitaByIdAndUser = async (citaId, userId) => {
+    const [rows] = await pool.query(
+        'SELECT * FROM citas WHERE id = ? AND user_id = ?',
+        [citaId, userId]
+    );
+    return rows[0];
+};
+
+/**
+ * Actualiza una cita por su ID.
+ * Esta función es dinámica y puede actualizar los campos permitidos.
+ */
+const updateCitaById = async (citaId, data) => {
+    // Campos permitidos para actualizar
+    const allowedFields = ['fecha', 'hora', 'tratamiento', 'estado'];
+    
+    const fieldsToUpdate = Object.keys(data)
+        .filter(field => allowedFields.includes(field));
+
+    if (fieldsToUpdate.length === 0) {
+        throw new Error('No hay campos válidos para actualizar.');
+    }
+
+    // Construir la parte SET de la consulta
+    const setClause = fieldsToUpdate
+        .map(field => `${field} = ?`)
+        .join(', ');
+    
+    const values = fieldsToUpdate.map(field => data[field]);
+
+    const query = `UPDATE citas SET ${setClause} WHERE id = ?`;
+    
+    const [result] = await pool.query(query, [...values, citaId]);
+    return result;
+};
+
 module.exports = {
     create,
     findByUserId,
-    findAllWithPatientName
+    findAllWithPatientName,
+    findCitaByIdAndUser, 
+    updateCitaById
 };

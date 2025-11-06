@@ -233,6 +233,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
 }); // <-- FIN DEL DOMContentLoaded
 
+
+    // Pega esto en public/js/general.js, ANTES de la función showAlert
+
+/**
+ * Muestra un modal de confirmación personalizado.
+ * @param {string} message - El mensaje de la pregunta (ej. "¿Cancelar cita?").
+ * @param {string} [title="Confirmar Acción"] - El título del modal.
+ * @returns {Promise<boolean>} - Resuelve 'true' si se acepta, 'false' si se cancela.
+ */
+function showConfirm(message, title = "Confirmar Acción") {
+    // Devuelve una Promesa que se resolverá con 'true' o 'false'
+    return new Promise((resolve) => {
+        const modal = document.getElementById('confirm-modal');
+        const modalTitle = document.getElementById('confirm-modal-title');
+        const modalMessage = document.getElementById('confirm-modal-message');
+        const btnOk = document.getElementById('btn-confirm-ok');
+        const btnCancel = document.getElementById('btn-confirm-cancel');
+
+        if (!modal) {
+            console.error("No se encontró el #confirm-modal en el HTML.");
+            resolve(false); // Falla seguro si no hay modal
+            return;
+        }
+
+        // 1. Poblar el modal
+        modalTitle.textContent = title;
+        modalMessage.textContent = message;
+
+        // 2. Mostrar el modal
+        modal.classList.add('visible');
+
+        // 3. Crear listeners de un solo uso para los botones
+        
+        const onOkClick = () => {
+            modal.classList.remove('visible');
+            cleanup();
+            resolve(true);
+        };
+
+        const onCancelClick = () => {
+            modal.classList.remove('visible');
+            cleanup();
+            resolve(false);
+        };
+
+        // Función para limpiar los listeners
+        const cleanup = () => {
+            btnOk.removeEventListener('click', onOkClick);
+            btnCancel.removeEventListener('click', onCancelClick);
+        };
+
+        btnOk.addEventListener('click', onOkClick, { once: true });
+        btnCancel.addEventListener('click', onCancelClick, { once: true });
+    });
+}
+    
     // --- LÓGICA PARA MOSTRAR ALERTAS PERSONALIZADAS ---
 
 

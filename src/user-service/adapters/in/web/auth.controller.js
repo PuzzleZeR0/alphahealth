@@ -1,7 +1,7 @@
 // src/user-service/adapters/in/web/auth.controller.js
 const { registerUserUseCase } = require('../../../application/use-cases/register-user.use-case.js');
 const { loginUserUseCase } = require('../../../application/use-cases/login-user.use-case.js');
-const { getUserProfileUseCase, updateUserProfileUseCase } = require('../../../application/use-cases/profile.use-case.js');
+const { getUserProfileUseCase, updateUserProfileUseCase,getAllUserProfilesUseCase } = require('../../../application/use-cases/profile.use-case.js');
 // --- IMPORTAR NUEVOS USE CASES ---
 const { updateEmailUseCase } = require('../../../application/use-cases/update-email.use-case.js');
 const { updatePasswordUseCase } = require('../../../application/use-cases/update-password.use-case.js');
@@ -71,12 +71,22 @@ const updatePassword = async (req, res) => {
     }
 };
 
+const getAllProfiles = async (req, res) => {
+    try {
+        const profiles = await getAllUserProfilesUseCase();
+        res.status(200).json(profiles);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 
 module.exports = {
     register,
     login,
     getProfile,    
     updateProfile,
-    updateEmail,    // <-- Exportar nuevo controlador
-    updatePassword  // <-- Exportar nuevo controlador
+    updateEmail,   
+    updatePassword,  
+    getAllProfiles
 };

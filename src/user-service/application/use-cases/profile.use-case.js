@@ -61,7 +61,12 @@ const updateUserProfileUseCase = async (userId, profileData) => {
     return result;
 };
 
+const getAllUserProfilesUseCase = async () => {
+    return await userRepository.findAllUserProfiles();
+};
+
 module.exports = {
     getUserProfileUseCase,
-    updateUserProfileUseCase
+    updateUserProfileUseCase,
+    getAllUserProfilesUseCase // <-- Exportar el nuevo caso de uso
 };

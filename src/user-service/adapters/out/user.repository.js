@@ -108,6 +108,31 @@ const upsertProfile = async (userId, profileData) => {
     return result;
 };
 
+// --- NUEVA FUNCIÓN PARA OBTENER TODOS LOS PERFILES (ADMIN) ---
+const findAllUserProfiles = async () => {
+    // Usamos LEFT JOIN para incluir usuarios aunque no hayan completado su perfil
+    const query = `
+        SELECT 
+            u.id, u.nombre, u.email, u.rol,
+            p.profile_id, p.fecha_nacimiento, p.edad, p.sexo, p.domicilio, 
+            p.telefono, p.ocupacion, p.estado_civil, p.escolaridad, 
+            p.contacto_emergencia_nombre, p.contacto_emergencia_numero,
+            p.diabetes_pers, p.hipertension_pers, p.cardiacas_pers, 
+            p.fiebre_reumatica_pers, p.tiroides_pers, p.asma_pers, 
+            p.renales_pers, p.gastritis_pers
+        FROM 
+            users u
+        LEFT JOIN 
+            user_profiles p ON u.id = p.user_id
+        WHERE
+            u.rol = 'user' -- Solo mostrar pacientes, no otros admins
+        ORDER BY 
+            u.nombre
+    `;
+    const [rows] = await pool.query(query);
+    return rows;
+};
+
 module.exports = {
     findByEmail,
     createUser,
@@ -115,6 +140,7 @@ module.exports = {
     upsertProfile,
     findUserById,      
     updateUserName,
-    updateUserEmail,    // <-- Exportar nueva función
-    updateUserPassword  // <-- Exportar nueva función
+    updateUserEmail,    
+    updateUserPassword,  
+    findAllUserProfiles // <-- Exportar la nueva función
 };
